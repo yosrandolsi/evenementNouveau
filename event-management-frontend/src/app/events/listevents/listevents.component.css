@@ -1,0 +1,114 @@
+/* Conteneur des événements */
+.events-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Aucune événement disponible */
+.no-events {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  color: #7f8c8d;
+}
+
+/* Table responsive */
+.table-responsive {
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Style de la table */
+.events-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border: 1px solid #9B84CC;
+}
+
+.events-table th {
+  background-color:#9B84CC;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 500;
+}
+
+.events-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  color: #34495e;
+}
+
+.events-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.events-table tr:hover {
+  background-color: #EBE3F5;
+  transition: background-color 0.3s ease;
+}
+
+/* Badge catégorie */
+.category-badge {
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+/* Cellule de description (ellipses pour trop long texte) */
+.description-cell {
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Boutons d'actions */
+.btn-update, .btn-delete {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(74, 63, 101, 0.2); /* ombre douce */
+  transition: all 0.3s ease;
+}
+
+/* Bouton de mise à jour - violet foncé */
+.btn-update {
+  background-color: #4A3F65;
+  color: white;
+}
+
+.btn-update:hover {
+  background-color: #4a47b8;
+  transform: translateY(-2px);
+}
+
+/* Bouton de suppression - rouge élégant */
+.btn-delete {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}

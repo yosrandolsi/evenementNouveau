@@ -1,0 +1,44 @@
+<div class="events-container">
+  <h2>Gestion des Événements</h2>
+
+  <!-- Sélecteur de catégorie -->
+  <div class="filter-section">
+    <label for="categorySelect">Filtrer par catégorie:</label>
+    <select id="categorySelect" [(ngModel)]="selectedCategory" (change)="onCategoryChange()">
+      <option value="all">Toutes</option>
+      <option *ngFor="let cat of categories" [value]="cat.name">{{ cat.name }}</option>
+    </select>
+  </div>
+
+  <!-- Liste des événements -->
+  <div *ngIf="!noEventsMessage; else noEventsTemplate">
+    <app-listevents
+      [events]="events"
+      (updateEvent)="openUpdateModal($event)"
+      (delete)="deleteEvent($event)"
+      (viewDetails)="showEventDetails($event)">
+    </app-listevents>
+  </div>
+
+  <!-- Message si aucun événement trouvé -->
+  <ng-template #noEventsTemplate>
+    <div class="alert alert-info">
+      {{ noEventsMessage }}
+    </div>
+  </ng-template>
+
+  <!-- Modal de mise à jour -->
+  <app-update-event
+    [event]="selectedEvent"
+    [showModal]="showModal"
+    (close)="closeModal()"
+    (updated)="updateEvent($event)">
+  </app-update-event>
+
+  <!-- Modal de détails -->
+  <app-event-details
+    [event]="selectedDetailEvent"
+    [showModal]="showDetailModal"
+    (close)="closeDetailModal()">
+  </app-event-details>
+</div>

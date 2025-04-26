@@ -1,0 +1,16 @@
+<h2>Nouvelle Catégorie</h2>
+
+<form [formGroup]="categoryForm" (ngSubmit)="saveCategory()">
+  <input
+    type="text"
+    formControlName="name"
+    placeholder="Nom de la catégorie"
+    class="input"
+  />
+
+
+  <div class="actions">
+    <button type="button" (click)="close()">Annuler</button>
+    <button type="submit">Ajouter</button>
+  </div>
+</form>

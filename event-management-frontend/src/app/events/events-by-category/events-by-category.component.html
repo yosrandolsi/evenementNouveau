@@ -1,0 +1,29 @@
+<div class="events-container">
+    <h2>Événements – {{ categoryName }}</h2>
+  
+    <div *ngIf="events.length === 0" class="no-events">
+      <p>Aucun événement trouvé pour cette catégorie.</p>
+    </div>
+  
+    <div *ngIf="events.length > 0" class="table-responsive">
+      <table class="events-table">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Description</th>
+            <th>Date</th>
+            <th>Lieu</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let event of events">
+            <td>{{ event.title }}</td>
+            <td class="description-cell">{{ event.description }}</td>
+            <td>{{ event.date}}</td>
+            <td>{{ event.location }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

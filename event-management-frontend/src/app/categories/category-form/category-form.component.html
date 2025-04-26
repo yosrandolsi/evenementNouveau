@@ -1,0 +1,5 @@
+<h2>Ajouter une catégorie</h2>
+<form (ngSubmit)="submit()">
+  <input [(ngModel)]="category.name" name="name" required placeholder="Nom de la catégorie" />
+  <button type="submit">Ajouter</button>
+</form>

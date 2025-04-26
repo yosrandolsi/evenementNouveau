@@ -1,0 +1,32 @@
+<div *ngIf="events.length === 0" class="no-events">
+  <p>Aucun événement disponible pour le moment.</p>
+</div>
+
+<div *ngIf="events.length > 0" class="table-responsive">
+  <table class="events-table">
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Date</th>
+        <th>Lieu</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.title }}</td>
+        <td>{{ event.date }}</td>
+        <td>{{ event.location }}</td>
+        <td class="description-cell">{{ event.description }}</td>
+        <td>
+          
+          <button (click)="openUpdateModal(event)" class="btn-update">Mettre à jour</button>
+          <button (click)="deleteEvent(event)" class="btn-delete">Supprimer</button>
+          <button (click)="openDetails(event)" class="btn-detail">Détails</button>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,58 @@
+<!-- Button to open modal -->
+<button (click)="openModal()" class="btn btn-primary btn-create">
+  <i class="fas fa-plus"></i> Create Event
+</button>
+
+<!-- Modal -->
+<div class="custom-modal" *ngIf="showModal">
+  <div class="custom-modal-content">
+    <div class="custom-modal-header">
+      <h3>Create New Event</h3>
+      <button class="custom-close-btn" (click)="closeModal()">&times;</button>
+    </div>
+
+    <form (ngSubmit)="createEvent()" class="custom-form">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Title" [(ngModel)]="newEvent.title" name="title" required>
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select
+          class="form-control"
+          [ngModel]="newEvent.category.id"
+          (ngModelChange)="onCategorySelect($event)"
+          name="category"
+          required
+        >
+          <option value="" disabled selected>Select a category</option>
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <textarea class="form-control" placeholder="Description" [(ngModel)]="newEvent.description" name="description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Event Date</label>
+        <input type="date" class="form-control" [(ngModel)]="newEvent.date" name="date" required>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Location" [(ngModel)]="newEvent.location" name="location" required>
+      </div>
+
+      <div class="form-group">
+        <input type="number" class="form-control" placeholder="Maximum Participants" [(ngModel)]="newEvent.maxParticipants" name="maxParticipants" required>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn btn-outline-secondary" (click)="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Add Event</button>
+      </div>
+    </form>
+  </div>
+</div>

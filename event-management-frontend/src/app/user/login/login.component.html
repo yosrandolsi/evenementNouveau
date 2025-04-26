@@ -1,0 +1,45 @@
+<div class="login-container">
+    <h2>Connexion</h2>
+  
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Champ utilisateur -->
+      <div class="form-group">
+        <label for="username">Nom d'utilisateur</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-control"
+          placeholder="Entrez votre nom d'utilisateur"
+        />
+        <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error">
+          Le nom d'utilisateur est requis.
+        </div>
+      </div>
+  
+      <!-- Champ mot de passe -->
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          placeholder="Entrez votre mot de passe"
+        />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error">
+          Le mot de passe est requis (min. 6 caractères).
+        </div>
+      </div>
+  
+      <!-- Message d'erreur -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+  
+      <!-- Bouton de soumission -->
+      <button type="submit" [disabled]="isLoading || loginForm.invalid" class="btn btn-primary">
+        {{ isLoading ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+</div>

@@ -1,0 +1,53 @@
+<div class="app-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h3>Menu</h3>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="fas fa-home"></i>
+            <span>Accueil</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/events" routerLinkActive="active">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Événements</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/create" routerLinkActive="active">
+            <i class="fas fa-plus-circle"></i>
+            <span>Créer</span>
+          </a>
+        </li>
+        <!-- Lien vers la liste des catégories -->
+        <li>
+          <a routerLink="/categories" routerLinkActive="active">
+            <i class="fas fa-tags"></i>
+            <span>Catégories</span>
+          </a>
+        </li>
+        <!-- Lien vers la création d'une catégorie -->
+        <li>
+          <a routerLink="/create-category" routerLinkActive="active">
+            <i class="fas fa-plus-square"></i>
+            <span>Ajouter Catégorie</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <img src="assets/images/user-avatar.png" alt="Profil" class="user-avatar">
+        <span class="user-name">Utilisateur</span>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
