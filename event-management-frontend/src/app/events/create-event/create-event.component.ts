@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 import { CategoryService } from 'src/app/services/category.service';
 import { Category } from 'src/app/models/category';
@@ -8,9 +8,10 @@ import { Category } from 'src/app/models/category';
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.css']
 })
-export class CreateEventComponent implements OnInit {
-  @Output() eventCreated = new EventEmitter<void>();
-  showModal = false;
+export class CreateEventComponent {
+  @Input() showModal: boolean = false;  // Contrôle l'affichage du modal
+  @Output() eventCreated = new EventEmitter<void>();  // Émet pour signaler que l'événement a été créé
+  @Output() close = new EventEmitter<void>();  // Émet pour fermer le modal
 
   categories: Category[] = [];
 
@@ -44,7 +45,7 @@ export class CreateEventComponent implements OnInit {
   }
 
   closeModal() {
-    this.showModal = false;
+    this.close.emit();
   }
 
   onCategorySelect(selectedId: string) {
@@ -56,10 +57,9 @@ export class CreateEventComponent implements OnInit {
   }
   
   createEvent() {
-    console.log('Event data to send:', this.newEvent);
     this.eventService.createEvent(this.newEvent).subscribe({
       next: () => {
-        this.eventCreated.emit();
+        this.eventCreated.emit();  // Émet le signal que l'événement a été créé
         this.closeModal();
         alert('Événement créé avec succès!');
       },

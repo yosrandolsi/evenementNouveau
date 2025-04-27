@@ -48,6 +48,9 @@ public class EventService {
     public void deleteEvent(String id) {
         eventRepository.deleteById(id);
     }
+    public List<Event> getEventsByCategory(String category) {
+        return eventRepository.findByCategory(category);
+    }
 
 
 }

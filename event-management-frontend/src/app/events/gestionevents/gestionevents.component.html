@@ -1,6 +1,11 @@
 <div class="events-container">
   <h2>Gestion des Événements</h2>
 
+  <!-- Ajouter un événement -->
+  <div class="add-event-button-container">
+    <button class="btn btn-primary" (click)="openCreateEventModal()">Ajouter un événement</button>
+  </div>
+
   <!-- Sélecteur de catégorie -->
   <div class="filter-section">
     <label for="categorySelect">Filtrer par catégorie:</label>
@@ -35,10 +40,21 @@
     (updated)="updateEvent($event)">
   </app-update-event>
 
+  <!-- Modal de création d'événement -->
+  <app-create-event
+    [showModal]="showCreateEventModal"
+    (eventCreated)="onEventCreated()"
+    (close)="closeCreateEventModal()">
+  </app-create-event>
+
   <!-- Modal de détails -->
-  <app-event-details
-    [event]="selectedDetailEvent"
-    [showModal]="showDetailModal"
-    (close)="closeDetailModal()">
-  </app-event-details>
+  <div *ngIf="showDetailModal" class="modal-backdrop">
+    <div class="modal-content">
+      <app-event-details
+        [event]="selectedDetailEvent"  
+        [showModal]="showDetailModal"
+        (close)="closeDetailModal()">
+      </app-event-details>
+    </div>
+  </div>
 </div>

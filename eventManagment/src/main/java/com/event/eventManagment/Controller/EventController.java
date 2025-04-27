@@ -51,5 +51,12 @@ public class EventController {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
+ // Path pour obtenir des événements par catégorie
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable String category) {
+        List<Event> events = eventService.getEventsByCategory(category);
+        return ResponseEntity.ok(events);
+    }
+
 
 }

@@ -19,15 +19,15 @@ export class EventService {
       .pipe(
         catchError(this.handleError)
       );
-  }
-
-  // Créer un nouvel événement
-  createEvent(event: any): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/create`, event, { headers: this.getAuthHeaders() })
+  }createEvent(event: any): Observable<any> {
+    const headers = this.getAuthHeaders(); // Utilise getAuthHeaders ici
+    return this.http.post<any>(`${this.baseUrl}/create`, event, { headers })
       .pipe(
         catchError(this.handleError)
       );
   }
+  
+  
 
   // Mettre à jour un événement existant (nouvelle version)
   updateEvent(eventId: string, eventData: any) {
@@ -55,13 +55,16 @@ export class EventService {
       );
   }
 
-  // Récupérer un événement par ID
-  getEventById(eventId: string): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/details/${eventId}`, { headers: this.getAuthHeaders() })
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+// EventService.ts
+
+// Récupérer un événement par son ID
+getEventById(eventId: string): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/details/${eventId}`, { headers: this.getAuthHeaders() })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
 
   // Fonction pour récupérer les headers avec le token d'authentification
   private getAuthHeaders(): HttpHeaders {

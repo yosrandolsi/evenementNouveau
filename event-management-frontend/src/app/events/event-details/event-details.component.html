@@ -1,14 +1,19 @@
-<div *ngIf="showModal" class="modal">
-    <div class="modal-content">
-      <span class="close" (click)="closeModal()">&times;</span>
-      <h2>Détails de l'Événement</h2>
-      <div *ngIf="event">
-        <p><strong>Titre:</strong> {{ event.title }}</p>
-        <p><strong>Description:</strong> {{ event.description }}</p>
-        <p><strong>Date:</strong> {{ event.date }}</p>
-        <p><strong>Catégorie:</strong> {{ event.category }}</p>
-        <!-- Ajoute d'autres détails ici -->
-      </div>
+<div *ngIf="event" class="event-details-container">
+  <div class="event-details-box">
+    <h1>{{ event.title }}</h1>
+    <p><strong>Description:</strong> {{ event.description }}</p>
+    <p><strong>Catégorie:</strong> {{ event.category }}</p>
+    <p><strong>Date:</strong> {{ event.date | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Lieu:</strong> {{ event.location }}</p>
+    <p><strong>Participants:</strong> {{ event.currentParticipants }} / {{ event.maxParticipants }}</p>
+    
+    <div class="button-container">
+      <button class="back-button" (click)="goBack()">Retour</button>
     </div>
   </div>
-  
+</div>
+
+<!-- Message si l'événement n'est pas trouvé -->
+<div *ngIf="!event" class="event-not-found">
+  <p>Événement non trouvé</p>
+</div>

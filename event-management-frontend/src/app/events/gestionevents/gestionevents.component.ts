@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EventService } from 'src/app/services/event.service';
 import { CategoryService } from 'src/app/services/category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gestionevents',
@@ -13,19 +14,21 @@ export class GestioneventsComponent implements OnInit {
   categories: any[] = [];
   selectedCategory: string = 'all';
   selectedEvent: any = {};
-  selectedDetailEvent: any = {}; // L'événement sélectionné pour les détails
+  selectedDetailEvent: any = {};  // L'événement sélectionné pour les détails
   showModal: boolean = false;
-  showDetailModal: boolean = false; // Affichage du modal de détails
-  noEventsMessage: string = ''; // Message pour afficher "Aucun événement trouvé"
+  showCreateEventModal: boolean = false;  // Modal de création d'événement
+  showDetailModal: boolean = false;  // Modal de détails
+  noEventsMessage: string = '';
 
   constructor(
     private eventService: EventService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.loadCategories();
-    this.refreshEvents(); // Charger les événements au démarrage
+    this.refreshEvents();
   }
 
   loadCategories(): void {
@@ -59,12 +62,12 @@ export class GestioneventsComponent implements OnInit {
     if (this.events.length === 0) {
       this.noEventsMessage = `Aucun événement trouvé pour la catégorie "${this.selectedCategory}"`;
     } else {
-      this.noEventsMessage = ''; // Si des événements sont trouvés, on cache le message
+      this.noEventsMessage = '';
     }
   }
 
   onCategoryChange(): void {
-    this.refreshEvents(); // Rafraîchir les événements quand la catégorie change
+    this.refreshEvents();
   }
 
   openUpdateModal(event: any): void {
@@ -93,22 +96,30 @@ export class GestioneventsComponent implements OnInit {
     });
   }
 
+  // Ouvrir le modal de création d'événement
+  openCreateEventModal(): void {
+    this.showCreateEventModal = true;  // Ouvrir le modal de création
+  }
+
+  // Fermer le modal de création d'événement
+  closeCreateEventModal(): void {
+    this.showCreateEventModal = false;  // Fermer le modal de création
+  }
+
+  // Quand un événement est créé
+  onEventCreated(): void {
+    this.refreshEvents();  // Rafraîchir la liste des événements
+    this.closeCreateEventModal();  // Fermer le modal
+  }
+
   // Ouvrir le modal de détails
   showEventDetails(event: any): void {
-    this.eventService.getEventById(event.id).subscribe({
-      next: (data) => {
-        console.log('Détails récupérés:', data);
-        this.selectedDetailEvent = data; // Stocker les détails dans selectedDetailEvent
-        this.showDetailModal = true; // Affiche le modal
-      },
-      error: (err) => {
-        console.error('Erreur lors de la récupération des détails de l\'événement', err);
-      }
-    });
+    this.selectedDetailEvent = event;
+    this.showDetailModal = true;  // Ouvrir le modal de détails
   }
 
   // Fermer le modal des détails
   closeDetailModal(): void {
-    this.showDetailModal = false;
+    this.showDetailModal = false;  // Fermer le modal
   }
 }
