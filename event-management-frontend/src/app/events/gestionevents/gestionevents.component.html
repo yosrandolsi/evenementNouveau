@@ -3,7 +3,7 @@
 
   <!-- Ajouter un événement -->
   <div class="add-event-button-container">
-    <button class="btn btn-primary" (click)="openCreateEventModal()">Ajouter un événement</button>
+    <button class="btn btn-primary" (click)="openAddEventModal()">Ajouter un événement</button>
   </div>
 
   <!-- Sélecteur de catégorie -->
@@ -41,11 +41,12 @@
   </app-update-event>
 
   <!-- Modal de création d'événement -->
-  <app-create-event
+  <app-add-event
+    *ngIf="showCreateEventModal"  
     [showModal]="showCreateEventModal"
     (eventCreated)="onEventCreated()"
     (close)="closeCreateEventModal()">
-  </app-create-event>
+  </app-add-event>
 
   <!-- Modal de détails -->
   <div *ngIf="showDetailModal" class="modal-backdrop">

@@ -19,14 +19,7 @@ export class EventService {
       .pipe(
         catchError(this.handleError)
       );
-  }createEvent(event: any): Observable<any> {
-    const headers = this.getAuthHeaders(); // Utilise getAuthHeaders ici
-    return this.http.post<any>(`${this.baseUrl}/create`, event, { headers })
-      .pipe(
-        catchError(this.handleError)
-      );
   }
-  
   
 
   // Mettre à jour un événement existant (nouvelle version)
@@ -93,4 +86,19 @@ getEventById(eventId: string): Observable<any> {
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+  // Ajouter un événement
+saveEvent(event: any): Observable<any> {
+  const token = this.authService.getToken(); // Récupérer le token d'authentification depuis le AuthService
+  const headers = new HttpHeaders({
+    'Content-Type': 'application/json', // Indiquer que l'on envoie des données JSON
+    'Authorization': `Bearer ${token}`  // Ajouter le token dans les headers pour l'authentification
+  });
+
+  // Envoi de la requête POST pour créer un événement
+  return this.http.post<any>(`${this.baseUrl}/create`, event, { headers })
+    .pipe(
+      catchError(this.handleError) // Gestion des erreurs
+    );
+}
+
 }

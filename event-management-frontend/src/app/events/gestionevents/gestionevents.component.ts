@@ -97,29 +97,29 @@ export class GestioneventsComponent implements OnInit {
   }
 
   // Ouvrir le modal de création d'événement
-  openCreateEventModal(): void {
-    this.showCreateEventModal = true;  // Ouvrir le modal de création
+  openAddEventModal(): void {
+    this.showCreateEventModal = true;  // Le modal de création devient visible
   }
 
   // Fermer le modal de création d'événement
   closeCreateEventModal(): void {
-    this.showCreateEventModal = false;  // Fermer le modal de création
+    this.showCreateEventModal = false;  // Le modal de création devient invisible
   }
 
   // Quand un événement est créé
   onEventCreated(): void {
     this.refreshEvents();  // Rafraîchir la liste des événements
-    this.closeCreateEventModal();  // Fermer le modal
+    this.closeCreateEventModal();  // Fermer le modal de création
   }
 
   // Ouvrir le modal de détails
   showEventDetails(event: any): void {
     this.selectedDetailEvent = event;
-    this.showDetailModal = true;  // Ouvrir le modal de détails
+    this.showDetailModal = true;  // Le modal de détails devient visible
   }
 
   // Fermer le modal des détails
   closeDetailModal(): void {
-    this.showDetailModal = false;  // Fermer le modal
+    this.showDetailModal = false;  // Le modal des détails devient invisible
   }
 }

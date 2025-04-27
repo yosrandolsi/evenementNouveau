@@ -9,18 +9,20 @@ import { EventsByCategoryComponent } from './events-by-category/events-by-catego
 import { GestioneventsComponent } from './gestionevents/gestionevents.component';
 import { ListeventsComponent } from './listevents/listevents.component';
 import { UpdateEventComponent } from './update-event/update-event.component';
-
+import { AddEventComponent } from './add-event/add-event.component';
 @NgModule({
   declarations: [
     CreateEventComponent,
     EventDetailsComponent,
     EventsByCategoryComponent,
+    AddEventComponent,
     GestioneventsComponent,
     ListeventsComponent,
     UpdateEventComponent
   ],
   imports: [
     CommonModule,
+    
     FormsModule,
     ReactiveFormsModule,
     EventsRoutingModule

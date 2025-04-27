@@ -57,6 +57,9 @@ export class CreateEventComponent {
   }
   
   createEvent() {
+    // Afficher dans la console les données du formulaire
+  /*  console.log('Données de l\'événement à créer:', this.newEvent);
+  
     this.eventService.createEvent(this.newEvent).subscribe({
       next: () => {
         this.eventCreated.emit();  // Émet le signal que l'événement a été créé
@@ -68,5 +71,7 @@ export class CreateEventComponent {
         alert('Erreur lors de la création de l\'événement. Vérifiez les champs.');
       }
     });
+  }*/
   }
+  
 }

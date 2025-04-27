@@ -10,9 +10,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EventsModule } from './events/events.module';
 import { CategoriesModule } from './categories/categories.module';
 
+
 @NgModule({
   declarations: [
-    AppComponent // ✅ C’est le seul composant à déclarer ici
+    AppComponent,
+
   ],
   imports: [
     BrowserModule,
