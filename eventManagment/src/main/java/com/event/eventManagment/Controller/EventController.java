@@ -18,27 +18,35 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @PostMapping
+    // Path pour la création d'un événement
+    @PostMapping("/create")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         return ResponseEntity.ok(eventService.saveEvent(event));
     }
 
-    @GetMapping
+    // Path pour obtenir tous les événements
+    @GetMapping("/list")
     public ResponseEntity<List<Event>> getEvents() {
         return ResponseEntity.ok(eventService.getAllEvents());
     }
-    @PutMapping("/{id}")
+
+    // Path pour mettre à jour un événement
+    @PutMapping("/update/{id}")
     public ResponseEntity<Event> updateEvent(@PathVariable String id, @RequestBody Event updatedEvent) {
         Event event = eventService.updateEvent(id, updatedEvent);
         return ResponseEntity.ok(event);
     }
-    @GetMapping("/{id}")
+
+    // Path pour obtenir un événement par son ID
+    @GetMapping("/details/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable String id) {
         return eventService.getEventById(id)
             .map(ResponseEntity::ok)
             .orElse(ResponseEntity.notFound().build());
     }
-    @DeleteMapping("/{id}")
+
+    // Path pour supprimer un événement
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable String id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
