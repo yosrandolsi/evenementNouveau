@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig {
@@ -27,10 +28,12 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(AbstractHttpConfigurer::disable)
+            .cors(cors -> cors.disable()) 
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers("/api/categories/all").permitAll()  // Autoriser tous les utilisateurs à accéder à la liste des catégories
-                .requestMatchers("/api/categories/create").permitAll()   // Seul ADMIN peut créer des catégories
+                .requestMatchers("/api/categories/all").permitAll() 
+                .requestMatchers(new AntPathRequestMatcher("/api/categories/**", "OPTIONS")).permitAll()// Autoriser tous les utilisateurs à accéder à la liste des catégories
+                .requestMatchers("/api/categories/create").hasRole("ADMIN") // Seul ADMIN peut créer des catégories
                 .requestMatchers("/api/categories/delete/**").permitAll()  // Seul ADMIN peut supprimer des catégories
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Accès restreint aux ressources ADMIN
                 .requestMatchers("/api/organizer/**").hasAnyRole("ADMIN", "ORGANIZER")  // Les organisateurs et ADMIN peuvent accéder à ces ressources
