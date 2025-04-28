@@ -41,13 +41,12 @@ export class RegisterEventComponent implements OnInit {
       categoryName: [this.categoryName, Validators.required],
       status: ['Actif', Validators.required], // Valeur par défaut
       preferences: [''],
-      registrationDate: [new Date().toISOString(), Validators.required] // Ajouter la date actuelle
+      registrationDate: [new Date().toISOString().split('T')[0], Validators.required] // Date actuelle définie ici
     });
   }
 
   // Méthode pour récupérer le nom de la catégorie en fonction de son ID
   getCategoryName(categoryId: string): void {
-    // Ici, remplacez cette logique avec la méthode adéquate pour récupérer le nom
     if (categoryId === 'Informatique') {
       this.categoryName = 'Informatique';
     } else if (categoryId === 'Science') {
@@ -59,6 +58,7 @@ export class RegisterEventComponent implements OnInit {
 
   // Méthode appelée lors de la soumission du formulaire
   onSubmit(): void {
+    console.log('Form submitted');
     if (this.registerForm.invalid) {
       return;
     }

@@ -4,18 +4,33 @@
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <label for="firstName">Prénom</label>
     <input id="firstName" formControlName="firstName" type="text" required>
+    <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched">
+      <small class="error">Le prénom est requis.</small>
+    </div>
 
     <label for="lastName">Nom</label>
     <input id="lastName" formControlName="lastName" type="text" required>
+    <div *ngIf="registerForm.get('lastName')?.invalid && registerForm.get('lastName')?.touched">
+      <small class="error">Le nom est requis.</small>
+    </div>
 
     <label for="email">Email</label>
     <input id="email" formControlName="email" type="email" required>
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      <small class="error">L'email est requis et doit être valide.</small>
+    </div>
 
     <label for="phone">Téléphone</label>
     <input id="phone" formControlName="phone" type="text" required>
+    <div *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+      <small class="error">Le téléphone est requis.</small>
+    </div>
 
     <label for="address">Adresse</label>
     <input id="address" formControlName="address" type="text" required>
+    <div *ngIf="registerForm.get('address')?.invalid && registerForm.get('address')?.touched">
+      <small class="error">L'adresse est requise.</small>
+    </div>
 
     <label for="paymentStatus">Statut du paiement</label>
     <select id="paymentStatus" formControlName="paymentStatus">
@@ -32,12 +47,11 @@
     <label for="preferences">Préférences</label>
     <textarea id="preferences" formControlName="preferences"></textarea>
 
-    <label for="registrationDate">Date d'inscription</label>
-    <input id="registrationDate" formControlName="registrationDate" type="text" [value]="registerForm.get('registrationDate')?.value" >
+    <!-- La date n'est plus présente ici, elle est définie dans le TypeScript -->
 
     <label for="notes">Notes (optionnel)</label>
     <textarea id="notes" formControlName="notes"></textarea>
 
-    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+    <button type="submit" >S'inscrire</button>
   </form>
 </div>
