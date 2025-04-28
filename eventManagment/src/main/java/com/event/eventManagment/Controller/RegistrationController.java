@@ -3,6 +3,7 @@ package com.event.eventManagment.Controller;
 import com.event.eventManagment.model.Registration;
 import com.event.eventManagment.Service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,5 +44,14 @@ public class RegistrationController {
     @GetMapping("/event/{eventId}")
     public List<Registration> getRegistrationsByEventId(@PathVariable String eventId) {
         return registrationService.getRegistrationsByEventId(eventId);
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<Registration> updateRegistration(@PathVariable String id, @RequestBody Registration registration) {
+        try {
+            Registration updatedRegistration = registrationService.updateRegistration(id, registration);
+            return ResponseEntity.ok(updatedRegistration);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

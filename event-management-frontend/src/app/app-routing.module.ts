@@ -8,8 +8,8 @@ import { EventDetailsComponent } from './events/event-details/event-details.comp
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryFormComponent } from './categories/category-form/category-form.component';
 import { AddEventComponent } from './events/add-event/add-event.component';
-import { RegisterEventComponent } from './events/register-event/register-event.component';  // Importer le composant
-
+import { RegisterEventComponent } from './events/register-event/register-event.component';
+import { EventRegistrationsComponent } from './events/event-registrations/event-registrations.component'; // ✅ Ajouté ici
 
 // Lazy loading du module utilisateur
 const routes: Routes = [
@@ -17,18 +17,24 @@ const routes: Routes = [
 
   // Module utilisateur (login, register)
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
-  { path: 'register-event/:eventId/:categoryId', component: RegisterEventComponent },
+
   // Événements
   { path: 'events', component: GestioneventsComponent },
   { path: 'create-event', component: CreateEventComponent },
   { path: 'event-details/:id', component: EventDetailsComponent },
   { path: 'events-by-category/:category', component: EventsByCategoryComponent },
-  { path: 'register-event/:id', component: RegisterEventComponent },  // Nouvelle route pour RegisterEventComponent
+  { path: 'register-event/:id', component: RegisterEventComponent },
+  { path: 'register-event/:eventId/:categoryId', component: RegisterEventComponent },
 
   // Catégories
   { path: 'categories', component: CategoryListComponent },
   { path: 'create-category', component: CategoryFormComponent },
+
+  // Ajouter un événement
   { path: 'add-event', component: AddEventComponent },
+
+  // ✅ Inscriptions (liste des inscriptions)
+  { path: 'registrations', component: EventRegistrationsComponent },
 
   // Route fallback (page non trouvée)
   { path: '**', redirectTo: '/events' }

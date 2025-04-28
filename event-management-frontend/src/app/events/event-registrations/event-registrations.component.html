@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Inscriptions à l'événement</h2>
+  
+  <div class="table-responsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Email</th>
+          <th>Téléphone</th>
+          <th>Événement</th>
+          <th>Catégorie</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registration of registrations">
+          <td>{{ registration.lastName }}</td>
+          <td>{{ registration.firstName }}</td>
+          <td>{{ registration.email }}</td>
+          <td>{{ registration.phone }}</td>
+          <td>{{ registration.eventName }}</td>  <!-- Affichage du nom de l'événement -->
+
+          <td>{{ registration.category }}</td>
+          <td>
+            <span [class]="'status-' + (registration.status === 'Accepté' ? 'active' : 'inactive')">
+              {{ registration.status }}
+            </span>
+          </td>
+          <td class="actions">
+            <button (click)="acceptRegistration(registration)" 
+                    [disabled]="registration.status === 'Accepté'"
+                    class="btn btn-accept">
+              Accepter
+            </button>
+            <button (click)="refuseRegistration(registration)" 
+                    class="btn btn-refuse">
+              Refuser
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

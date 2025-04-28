@@ -12,7 +12,7 @@ export class RegisterEventComponent implements OnInit {
   registerForm!: FormGroup;
   eventId!: string;
   categoryId!: string;
-  categoryName: string = ''; // Variable pour le nom de la catégorie
+  categoryName: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -22,14 +22,10 @@ export class RegisterEventComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Récupérer l'ID de l'événement et de la catégorie depuis les paramètres de l'URL
     this.eventId = this.route.snapshot.paramMap.get('eventId')!;
     this.categoryId = this.route.snapshot.paramMap.get('categoryId')!;
-
-    // Récupérer le nom de la catégorie en fonction de son ID
     this.getCategoryName(this.categoryId);
 
-    // Initialiser le formulaire de l'inscription
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -39,13 +35,12 @@ export class RegisterEventComponent implements OnInit {
       paymentStatus: ['En attente', Validators.required],
       notes: [''],
       categoryName: [this.categoryName, Validators.required],
-      status: ['Actif', Validators.required], // Valeur par défaut
       preferences: [''],
-      registrationDate: [new Date().toISOString().split('T')[0], Validators.required] // Date actuelle définie ici
+      registrationDate: [new Date().toISOString().split('T')[0], Validators.required],
+      isActive: [false]
     });
   }
 
-  // Méthode pour récupérer le nom de la catégorie en fonction de son ID
   getCategoryName(categoryId: string): void {
     if (categoryId === 'Informatique') {
       this.categoryName = 'Informatique';
@@ -56,17 +51,17 @@ export class RegisterEventComponent implements OnInit {
     }
   }
 
-  // Méthode appelée lors de la soumission du formulaire
+  isFieldInvalid(field: string): boolean {
+    const control = this.registerForm.get(field);
+    return control ? control.invalid && (control.dirty || control.touched) : false;
+  }
+
   onSubmit(): void {
-    console.log('Form submitted');
     if (this.registerForm.invalid) {
       return;
     }
 
-    // Récupérer l'ID de l'utilisateur depuis le localStorage
     const userId = localStorage.getItem('userId');
-
-    // Vérifier que l'ID de l'utilisateur existe
     if (!userId) {
       console.error('Utilisateur non connecté');
       alert('Vous devez être connecté pour vous inscrire.');
@@ -74,27 +69,25 @@ export class RegisterEventComponent implements OnInit {
       return;
     }
 
-    // Créer l'objet d'inscription avec l'ID de l'utilisateur et les autres champs
     const registrationData = {
-      userId: userId,  // ID de l'utilisateur
+      userId: userId,
       firstName: this.registerForm.value.firstName,
       lastName: this.registerForm.value.lastName,
       email: this.registerForm.value.email,
       phone: this.registerForm.value.phone,
       address: this.registerForm.value.address,
       eventId: this.eventId,
-      category: this.categoryName,  // Utiliser le nom de la catégorie
-      status: this.registerForm.value.status,
+      category: this.categoryName,
+      status: 'En cours',
       preferences: this.registerForm.value.preferences,
-      registrationDate: this.registerForm.value.registrationDate  // Date actuelle
+      registrationDate: this.registerForm.value.registrationDate,
+      isActive: this.registerForm.value.isActive
     };
-
-    console.log('Envoi des données :', registrationData);
 
     this.registrationService.register(registrationData).subscribe({
       next: (response) => {
         console.log('Inscription réussie', response);
-        this.router.navigate(['/events']); // Retour à la liste des événements après inscription
+        this.router.navigate(['/events']);
       },
       error: (error) => {
         console.error('Erreur lors de l\'inscription', error);

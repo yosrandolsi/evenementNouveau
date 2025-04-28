@@ -11,6 +11,7 @@ import { ListeventsComponent } from './listevents/listevents.component';
 import { UpdateEventComponent } from './update-event/update-event.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { RegisterEventComponent } from './register-event/register-event.component';
+import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
 @NgModule({
   declarations: [
     CreateEventComponent,
@@ -20,7 +21,8 @@ import { RegisterEventComponent } from './register-event/register-event.componen
     GestioneventsComponent,
     ListeventsComponent,
     UpdateEventComponent,
-    RegisterEventComponent
+    RegisterEventComponent,
+    EventRegistrationsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,117 @@
+.register-event-form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .register-event-form h2 {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  .register-event-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .register-event-form label {
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 0.4rem;
+    font-size: 0.95rem;
+  }
+  
+  .register-event-form input,
+  .register-event-form select,
+  .register-event-form textarea {
+    padding: 0.8rem 1rem;
+    border: 1px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+  }
+  
+  .register-event-form input:focus,
+  .register-event-form select:focus,
+  .register-event-form textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    background-color: #fff;
+  }
+  
+  .register-event-form textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  
+  .register-event-form button {
+    background-color: #3498db;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+  }
+  
+  .register-event-form button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+  }
+  
+  .register-event-form button:active {
+    transform: translateY(0);
+  }
+  
+  .error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+    display: block;
+  }
+  
+  /* Style pour les champs invalides */
+  .register-event-form input.ng-invalid.ng-touched,
+  .register-event-form select.ng-invalid.ng-touched {
+    border-color: #e74c3c;
+  }
+  
+  .register-event-form input.ng-invalid.ng-touched:focus,
+  .register-event-form select.ng-invalid.ng-touched:focus {
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+  }
+  
+  /* Animation douce pour les messages d'erreur */
+  .error {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* Style responsive */
+  @media (max-width: 640px) {
+    .register-event-form {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+    
+    .register-event-form h2 {
+      font-size: 1.5rem;
+    }
+  }

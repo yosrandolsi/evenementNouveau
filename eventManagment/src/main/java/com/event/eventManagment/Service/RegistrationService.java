@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class RegistrationService {
 
@@ -29,7 +28,6 @@ public class RegistrationService {
         return registrations;
     }
 
-
     public Optional<Registration> getRegistrationById(String id) {
         return registrationRepository.findById(id);
     }
@@ -41,5 +39,20 @@ public class RegistrationService {
     // Optionnel : Récupérer les inscriptions par ID événement
     public List<Registration> getRegistrationsByEventId(String eventId) {
         return registrationRepository.findByEventId(eventId);
+    }
+
+    public Registration updateRegistration(String id, Registration updatedRegistration) {
+        return registrationRepository.findById(id).map(existingRegistration -> {
+            existingRegistration.setFirstName(updatedRegistration.getFirstName());
+            existingRegistration.setLastName(updatedRegistration.getLastName());
+            existingRegistration.setEmail(updatedRegistration.getEmail());
+            existingRegistration.setPhone(updatedRegistration.getPhone());
+            existingRegistration.setAddress(updatedRegistration.getAddress());
+            existingRegistration.setCategory(updatedRegistration.getCategory());
+            existingRegistration.setStatus(updatedRegistration.getStatus());
+            existingRegistration.setPreferences(updatedRegistration.getPreferences());
+            existingRegistration.setRegistrationDate(updatedRegistration.getRegistrationDate());
+            return registrationRepository.save(existingRegistration);
+        }).orElseThrow(() -> new RuntimeException("Inscription non trouvée pour l'ID : " + id));
     }
 }
