@@ -10,18 +10,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EventsModule } from './events/events.module';
 import { CategoriesModule } from './categories/categories.module';
 
-
 @NgModule({
   declarations: [
-    AppComponent,
-
+    AppComponent,  // Déclare AppComponent et autres composants principaux
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
     MatDialogModule,
     AppRoutingModule,
     EventsModule,       // ✅ EventsModule gère ses composants

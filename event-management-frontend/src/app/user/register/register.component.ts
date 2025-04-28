@@ -48,6 +48,14 @@ export class RegisterComponent {
         // Affiche la réponse du serveur dans la console
         console.log('Réponse de l\'API (inscription réussie) :', response);
         
+        // Sauvegarde du token et de l'ID de l'utilisateur dans le localStorage après une inscription réussie
+        this.authService.saveToken(response.token);  // Sauvegarde du token
+        const userId = response.userId;  // Récupération de l'ID utilisateur depuis la réponse
+        localStorage.setItem('userId', userId);  // Sauvegarde de l'ID dans le localStorage
+
+        // Affichage de l'ID dans la console
+        console.log('ID de l\'utilisateur:', userId); // Affiche l'ID dans la console
+        
         // Redirection vers la page de connexion après l'inscription réussie
         this.router.navigate(['/login']);
       },

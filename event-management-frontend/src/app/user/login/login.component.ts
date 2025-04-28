@@ -28,20 +28,27 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       return;
     }
-  
+
     this.isLoading = true;
     const { username, password } = this.loginForm.value;
-  
+
     console.log('Données envoyées pour la connexion:', { username, password });
-  
+
     this.authService.login({ username, password }).subscribe(
       (response) => {
         this.isLoading = false;
         console.log('Réponse de l\'API (connexion réussie) :', response);
-  
-        // Sauvegarde du token reçu dans le localStorage
-        this.authService.saveToken(response.token);  // réponse.token au lieu de juste `token`
-  
+
+        // Sauvegarde du token dans le localStorage
+        this.authService.saveToken(response.token);  // Sauvegarde du token
+
+        // Récupération de l'ID de l'utilisateur depuis la réponse de l'API
+        const userId = response.userId;  // Utiliser directement userId depuis la réponse
+        localStorage.setItem('userId', userId);  // Sauvegarde de l'ID dans le localStorage
+
+        // Affichage de l'ID dans la console
+        console.log('ID de l\'utilisateur:', userId); // Affiche l'ID dans la console
+
         // Redirection vers la page d'accueil après la connexion réussie
         this.router.navigate(['/events']);
       },
@@ -52,4 +59,4 @@ export class LoginComponent {
       }
     );
   }
-}  
+}

@@ -1,0 +1,43 @@
+<div class="register-event-form">
+  <h2>Inscription à l'événement</h2>
+
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label for="firstName">Prénom</label>
+    <input id="firstName" formControlName="firstName" type="text" required>
+
+    <label for="lastName">Nom</label>
+    <input id="lastName" formControlName="lastName" type="text" required>
+
+    <label for="email">Email</label>
+    <input id="email" formControlName="email" type="email" required>
+
+    <label for="phone">Téléphone</label>
+    <input id="phone" formControlName="phone" type="text" required>
+
+    <label for="address">Adresse</label>
+    <input id="address" formControlName="address" type="text" required>
+
+    <label for="paymentStatus">Statut du paiement</label>
+    <select id="paymentStatus" formControlName="paymentStatus">
+      <option value="En attente">En attente</option>
+      <option value="Payé">Payé</option>
+    </select>
+
+    <label for="status">Statut de l'inscription</label>
+    <select id="status" formControlName="status">
+      <option value="Actif">Actif</option>
+      <option value="Inactif">Inactif</option>
+    </select>
+
+    <label for="preferences">Préférences</label>
+    <textarea id="preferences" formControlName="preferences"></textarea>
+
+    <label for="registrationDate">Date d'inscription</label>
+    <input id="registrationDate" formControlName="registrationDate" type="text" [value]="registerForm.get('registrationDate')?.value" >
+
+    <label for="notes">Notes (optionnel)</label>
+    <textarea id="notes" formControlName="notes"></textarea>
+
+    <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+  </form>
+</div>

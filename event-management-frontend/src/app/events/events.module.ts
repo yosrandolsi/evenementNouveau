@@ -10,6 +10,7 @@ import { GestioneventsComponent } from './gestionevents/gestionevents.component'
 import { ListeventsComponent } from './listevents/listevents.component';
 import { UpdateEventComponent } from './update-event/update-event.component';
 import { AddEventComponent } from './add-event/add-event.component';
+import { RegisterEventComponent } from './register-event/register-event.component';
 @NgModule({
   declarations: [
     CreateEventComponent,
@@ -18,7 +19,8 @@ import { AddEventComponent } from './add-event/add-event.component';
     AddEventComponent,
     GestioneventsComponent,
     ListeventsComponent,
-    UpdateEventComponent
+    UpdateEventComponent,
+    RegisterEventComponent
   ],
   imports: [
     CommonModule,

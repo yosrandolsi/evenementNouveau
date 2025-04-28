@@ -1,19 +1,29 @@
 <div *ngIf="event" class="event-details-container">
   <div class="event-details-box">
+    <!-- Titre de l'événement -->
     <h1>{{ event.title }}</h1>
-    <p><strong>Description:</strong> {{ event.description }}</p>
-    <p><strong>Catégorie:</strong> {{ event.category }}</p>
-    <p><strong>Date:</strong> {{ event.date | date:'dd/MM/yyyy' }}</p>
-    <p><strong>Lieu:</strong> {{ event.location }}</p>
-    <p><strong>Participants:</strong> {{ event.currentParticipants }} / {{ event.maxParticipants }}</p>
     
+    <!-- Description de l'événement -->
+    <p><strong>Description:</strong> {{ event.description }}</p>
+    
+    <!-- Catégorie de l'événement -->
+    <p><strong>Catégorie:</strong> {{ event.category }}</p>
+    
+    <!-- Date de l'événement avec un format personnalisé -->
+    <p><strong>Date:</strong> {{ event.date | date:'dd/MM/yyyy' }}</p>
+    
+    <!-- Lieu de l'événement -->
+    <p><strong>Lieu:</strong> {{ event.location }}</p>
+    
+    <!-- Nombre de participants actuel et maximum -->
+    <p><strong>Participants:</strong> {{ event.currentParticipants }} / {{ event.maxParticipants }}</p>
+
     <div class="button-container">
+      <!-- Bouton Retour vers la page précédente -->
       <button class="back-button" (click)="goBack()">Retour</button>
+
+      <!-- Bouton Participer pour s'inscrire à l'événement -->
+      <button class="participer-button" (click)="participer()">Participer</button> <!-- 👈 ici -->
     </div>
   </div>
-</div>
-
-<!-- Message si l'événement n'est pas trouvé -->
-<div *ngIf="!event" class="event-not-found">
-  <p>Événement non trouvé</p>
 </div>

@@ -36,6 +36,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/organizer/**").hasAnyRole("ADMIN", "ORGANIZER")  // Les organisateurs et ADMIN peuvent accéder à ces ressources
                 .requestMatchers("/api/user/**").hasAnyRole("ADMIN", "USER", "ORGANIZER")  // ADMIN, USER et ORGANIZER peuvent accéder à ces ressources
                 .requestMatchers("/api/users/**").permitAll()  // Accès libre aux utilisateurs (par exemple pour la gestion des utilisateurs)
+                .requestMatchers("/api/registrations/**").permitAll()
+
                 
                 // Protection des routes pour les événements
                 .requestMatchers("/api/events/create").permitAll()  // Seul ADMIN ou ORGANIZER peuvent créer un événement

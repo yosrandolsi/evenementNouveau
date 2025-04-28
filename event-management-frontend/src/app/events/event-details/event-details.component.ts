@@ -36,6 +36,31 @@ export class EventDetailsComponent implements OnInit {
       }
     });
   }
+  participate(): void {
+    const userId = localStorage.getItem('userId');
+  
+    if (!userId) {
+      alert('Vous devez être connecté pour vous inscrire.');
+      this.router.navigate(['/login']);
+      return;
+    }
+  
+    // Passer l'ID de l'événement et de la catégorie dans les queryParams
+    this.router.navigate(['/register-event'], {
+      queryParams: {
+        eventId: this.event.id,
+        categoryId: this.event.category, // S'assurer que 'event.category' contient l'ID ou le nom de la catégorie
+        userId: userId
+      }
+    });
+  }
+  
+  
+participer(): void {
+  if (this.event) {
+    this.router.navigate(['/register-event', this.event.id, this.event.category]);
+  }
+}
 
   goBack(): void {
     this.router.navigate(['/gestionevents']);  // Rediriger vers la page de gestion des événements

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -53,14 +52,15 @@ public class AuthController {
             throw new RuntimeException("Invalid credentials");
         }
 
-        // Générer le token JWT en incluant le nom d'utilisateur et le rôle
-        String token = jwtUtil.generateToken(found.getUsername(), found.getRole().name());
+        // Générer le token JWT en incluant le nom d'utilisateur, le rôle et l'ID
+        String token = jwtUtil.generateToken(found.getUsername(), found.getRole().name(), found.getId().toString());
 
-        // Créer la réponse avec le token et les rôles
+        // Créer la réponse avec le token, le rôle et l'ID
         Map<String, String> response = new HashMap<>();
         response.put("token", token);
         response.put("role", found.getRole().name());  // Ajouter le rôle dans la réponse
+        response.put("userId", found.getId().toString());  // Ajouter l'ID dans la réponse
 
-        return ResponseEntity.ok(response);  // Retourner la réponse avec le token et le rôle
+        return ResponseEntity.ok(response);  // Retourner la réponse avec le token, le rôle et l'ID
     }
 }
