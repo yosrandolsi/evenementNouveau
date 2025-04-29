@@ -25,6 +25,7 @@ export class UserService {
     return this.http.post<any>(this.apiUrl, userData);
   }
 
+  // Mettre à jour un utilisateur
   updateUser(id: string, userData: any): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}`, userData);
   }
@@ -33,4 +34,15 @@ export class UserService {
   deleteUser(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`);
   }
+
+  updateGlobalRole(id: string, newRole: string): Observable<any> {
+    const body = { role: newRole }; // JSON correct
+    return this.http.put<any>(`${this.apiUrl}/${id}/role`, body);
+  }
+  
+
+  updateOperationalRole(id: string, newOperationalRole: string): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${id}/operational-role`, { operationalRole: newOperationalRole });
+  }
+  
 }

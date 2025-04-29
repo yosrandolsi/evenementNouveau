@@ -1,16 +1,16 @@
-
 package com.event.eventManagment.Service;
 
-
 import com.event.eventManagment.Repository.UserRepository;
+import com.event.eventManagment.model.Role;
 import com.event.eventManagment.model.User;
-
+import com.event.eventManagment.model.OperationalRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
 @Service
 public class UserService {
 
@@ -40,11 +40,9 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'ID : " + id));
 
-        // Mise à jour des informations de l'utilisateur
         user.setUsername(userDetails.getUsername());
         user.setEmail(userDetails.getEmail());
 
-        // Si un mot de passe est fourni, on le met à jour (si non, il reste inchangé)
         if (userDetails.getPassword() != null) {
             user.setPassword(userDetails.getPassword());
         }
@@ -53,11 +51,39 @@ public class UserService {
         user.setAvailable(userDetails.isAvailable());
         user.setSkills(userDetails.getSkills());
 
-        // Sauvegarder l'utilisateur mis à jour dans la base de données
+        // Mise à jour du rôle opérationnel
+        user.setOperationalRole(userDetails.getOperationalRole());
+
         return userRepository.save(user);
+    }
+
+    public List<User> getAvailableStaffByCategory(String category) {
+        return StreamSupport.stream(userRepository.findAll().spliterator(), false)
+            .filter(user -> user.getRole() == Role.STAFF)
+            .filter(User::isAvailable)
+            .filter(user -> user.getSkills() != null && user.getSkills().contains(category))
+            .collect(Collectors.toList());
     }
 
     public void deleteUser(String id) {
         userRepository.deleteById(id);
+    }
+
+    // Mise à jour du rôle principal (Role)
+    public User updateGlobalRole(String userId, Role newRole) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'ID : " + userId));
+        
+        user.setRole(newRole);  // Mise à jour du rôle principal
+        return userRepository.save(user); // Sauvegarde de l'utilisateur avec son nouveau rôle
+    }
+
+    // Mise à jour du rôle opérationnel (OperationalRole)
+    public User updateOperationalRole(String userId, OperationalRole newOperationalRole) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'ID : " + userId));
+        
+        user.setOperationalRole(newOperationalRole);  // Mise à jour du rôle opérationnel
+        return userRepository.save(user); // Sauvegarde de l'utilisateur avec son nouveau rôle opérationnel
     }
 }

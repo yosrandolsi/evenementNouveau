@@ -13,6 +13,7 @@ export class UserListComponent implements OnInit {
   editingRoleUserId: string | null = null;
   newRole: string = '';
   roles: string[] = ['ADMIN', 'STAFF', 'PARTICIPANT'];
+  organizationalRoles: string[] = ['ANIMATEUR', 'TECHNICIEN', 'HOTE'];
 
   // Pour le composant modal
   showSkillModal: boolean = false;
@@ -46,9 +47,10 @@ export class UserListComponent implements OnInit {
     this.newRole = currentRole;
   }
 
+  // Mise à jour du rôle global via la méthode updateGlobalRole
   updateRole(userId: string): void {
     if (this.newRole) {
-      this.userService.updateUser(userId, { role: this.newRole }).subscribe(
+      this.userService.updateGlobalRole(userId, this.newRole).subscribe(
         () => {
           const index = this.users.findIndex(user => user.id === userId);
           if (index !== -1) {
@@ -64,12 +66,33 @@ export class UserListComponent implements OnInit {
     }
   }
 
+  // Mise à jour du rôle organisationnel via la méthode updateOperationalRole
+  updateOperationalRole(user: any): void {
+    if (user.operationalRole) {
+      this.userService.updateOperationalRole(user.id, user.operationalRole).subscribe(
+        () => {
+          console.log('Rôle organisationnel mis à jour pour', user.username);
+
+          // Mettre à jour localement le rôle organisationnel de l'utilisateur
+          const index = this.users.findIndex(u => u.id === user.id);
+          if (index !== -1) {
+            this.users[index].operationalRole = user.operationalRole; // Mise à jour du rôle opérationnel uniquement
+          }
+
+          this.filterByRole(this.selectedRole); // Refiltrer la liste des utilisateurs si nécessaire
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour du rôle organisationnel', error);
+        }
+      );
+    }
+  }
+
   cancelEditing(): void {
     this.editingRoleUserId = null;
   }
 
   // ---------- GESTION MODAL DE COMPÉTENCES POUR STAFF ----------
-
   openSkillModal(user: any): void {
     this.selectedStaff = user;
     this.showSkillModal = true;
@@ -81,7 +104,7 @@ export class UserListComponent implements OnInit {
     this.userService.getAllUsers().subscribe(
       (data) => {
         this.users = data;
-        this.filterByRole('STAFF'); // Rester sur la liste filtrée des STAFF
+        this.filterByRole('STAFF');
       },
       (error) => {
         console.error('Erreur de rechargement après modification des compétences', error);

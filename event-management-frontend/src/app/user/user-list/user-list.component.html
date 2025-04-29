@@ -17,8 +17,9 @@
           <th>Nom d'utilisateur</th>
           <th>Email</th>
           <th>Disponibilité</th>
-          <th>Compétences</th>
+          <th *ngIf="selectedRole === 'STAFF'">Compétences</th>
           <th>Modifier le rôle</th>
+          <th *ngIf="selectedRole === 'STAFF'">Rôle opérationnel</th>
           <th *ngIf="selectedRole === 'STAFF'">Actions Staff</th>
         </tr>
       </thead>
@@ -28,11 +29,14 @@
           <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
           <td>{{ user.available ? 'Disponible' : 'Indisponible' }}</td>
-          <td>
+
+          <!-- Affichage des compétences uniquement pour les STAFF -->
+          <td *ngIf="user.role === 'STAFF'">
             <ul>
               <li *ngFor="let skill of user.skills">{{ skill }}</li>
             </ul>
           </td>
+
           <td>
             <button *ngIf="editingRoleUserId !== user.id" (click)="startEditingRole(user.id, user.role)">Modifier</button>
             <div *ngIf="editingRoleUserId === user.id">
@@ -43,6 +47,18 @@
               <button (click)="cancelEditing()">Annuler</button>
             </div>
           </td>
+
+          <!-- Affichage du rôle opérationnel et gestion des compétences uniquement pour les STAFF -->
+          <td *ngIf="user.role === 'STAFF'">
+            <p>{{ user.operationalRole }}</p>
+            <select [(ngModel)]="user.operationalRole">
+              <option [ngValue]="null" disabled>Choisir...</option>
+              <option *ngFor="let role of organizationalRoles" [value]="role">{{ role }}</option>
+            </select>
+            <button (click)="updateOperationalRole(user)">Affecter</button>
+          </td>
+
+          <!-- Affichage du bouton "Gérer les compétences" uniquement pour les STAFF -->
           <td *ngIf="user.role === 'STAFF'">
             <button (click)="openSkillModal(user)">Gérer les compétences</button>
           </td>

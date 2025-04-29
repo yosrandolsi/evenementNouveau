@@ -1,40 +1,38 @@
 package com.event.eventManagment.Service;
 
-import com.event.eventManagment.Repository.AssignmentRepository;
 import com.event.eventManagment.model.Assignment;
-import com.event.eventManagment.model.User;
+import com.event.eventManagment.model.OperationalRole;
+import com.event.eventManagment.Repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AssignmentService {
 
-    private final AssignmentRepository assignmentRepository;
-
     @Autowired
-    public AssignmentService(AssignmentRepository assignmentRepository) {
-        this.assignmentRepository = assignmentRepository;
-    }
+    private AssignmentRepository assignmentRepository;
 
-    // Affecter un STAFF à un événement avec une compétence
-    public Assignment assignStaffToEvent(String userId, String eventId, String skill) {
-        Assignment assignment = new Assignment(userId, eventId, skill);
+    // Méthode pour assigner un utilisateur à un événement avec un rôle spécifique
+    public Assignment assignStaffToEvent(String userId, String eventId, OperationalRole operationalRole, String skill) {
+        // Créer une nouvelle affectation
+        Assignment assignment = new Assignment(userId, eventId, operationalRole, skill);
+        // Sauvegarder l'affectation dans la base de données
         return assignmentRepository.save(assignment);
     }
 
-    public List<User> getAvailableStaffForSkill(String skill) {
-        return assignmentRepository.findAvailableStaffForSkill(skill); // Assurez-vous que cette méthode retourne une liste de User
+    // Méthode pour récupérer toutes les affectations d'un événement
+    public Iterable<Assignment> getAssignmentsByEvent(String eventId) {
+        return assignmentRepository.findByEventId(eventId);
     }
 
-    // Obtenir toutes les affectations pour un événement donné
-    public Iterable<Assignment> getAssignmentsForEvent(String eventId) {
-        return assignmentRepository.findByEventId(eventId); // Méthode à définir dans le repository
+    // Méthode pour récupérer une affectation spécifique
+    public Assignment getAssignmentById(String assignmentId) {
+        return assignmentRepository.findById(assignmentId)
+                .orElseThrow(() -> new RuntimeException("Affectation non trouvée avec l'ID : " + assignmentId));
     }
 
-    // Obtenir toutes les affectations pour un utilisateur donné
-    public Iterable<Assignment> getAssignmentsForUser(String userId) {
-        return assignmentRepository.findByUserId(userId); // Méthode à définir dans le repository
+    // Méthode pour supprimer une affectation
+    public void deleteAssignment(String assignmentId) {
+        assignmentRepository.deleteById(assignmentId);
     }
 }

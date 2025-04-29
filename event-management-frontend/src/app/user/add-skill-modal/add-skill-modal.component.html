@@ -1,17 +1,14 @@
 <div class="modal-container" *ngIf="isModalOpen">
     <div class="modal-content">
-      <h3>Modifier les compétences de {{ user.username }}</h3>
+      <h3>Ajouter un rôle et des compétences pour {{ user.username }}</h3>
   
-      <p><strong>Compétences actuelles :</strong></p>
-      <ul *ngIf="updatedSkills.length > 0; else noSkills">
-        <li *ngFor="let skill of updatedSkills">{{ skill }}</li>
-      </ul>
-      <ng-template #noSkills>
-        <p>Aucune compétence actuelle.</p>
-      </ng-template>
+      <p><strong>Rôle organisationnel :</strong></p>
+      <select [(ngModel)]="selectedRole" (change)="onRoleChange(selectedRole)">
+        <option *ngFor="let role of organizationalRoles" [value]="role">{{ role }}</option>
+      </select>
   
-      <p><strong>Ajouter de nouvelles compétences :</strong></p>
-      <div *ngFor="let skill of allSkills">
+      <p><strong>Compétences disponibles pour le rôle de {{ selectedRole }} :</strong></p>
+      <div *ngFor="let skill of roleSkills[selectedRole]">
         <label>
           <input type="checkbox" [checked]="updatedSkills.includes(skill)" (change)="toggleSkill(skill)" />
           {{ skill }}
@@ -24,6 +21,4 @@
       </div>
     </div>
   </div>
-
-
-
+  

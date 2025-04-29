@@ -1,47 +1,21 @@
 package com.event.eventManagment.Controller;
 
-import com.event.eventManagment.Service.AssignmentService;
 import com.event.eventManagment.model.Assignment;
-import com.event.eventManagment.model.User;
+import com.event.eventManagment.Repository.AssignmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/assignments")
+@RequestMapping("/assignments")
 public class AssignmentController {
 
-    private final AssignmentService assignmentService;
-
     @Autowired
-    public AssignmentController(AssignmentService assignmentService) {
-        this.assignmentService = assignmentService;
-    }
+    private AssignmentRepository assignmentRepository;
 
-    // Affecter un STAFF à un événement avec une compétence
+    // Endpoint pour assigner un rôle à un utilisateur dans un événement
     @PostMapping("/assign")
-    public Assignment assignStaffToEvent(@RequestParam String userId,
-                                         @RequestParam String eventId,
-                                         @RequestParam String skill) {
-        return assignmentService.assignStaffToEvent(userId, eventId, skill);
-    }
-
-    // Obtenir tous les STAFFS disponibles pour une compétence donnée
-    @GetMapping("/available-staff")
-    public List<User> getAvailableStaffForSkill(@RequestParam String skill) {
-        return assignmentService.getAvailableStaffForSkill(skill);
-    }
-
-    // Obtenir toutes les affectations pour un événement donné
-    @GetMapping("/event/{eventId}")
-    public Iterable<Assignment> getAssignmentsForEvent(@PathVariable String eventId) {
-        return assignmentService.getAssignmentsForEvent(eventId);
-    }
-
-    // Obtenir toutes les affectations pour un utilisateur donné
-    @GetMapping("/user/{userId}")
-    public Iterable<Assignment> getAssignmentsForUser(@PathVariable String userId) {
-        return assignmentService.getAssignmentsForUser(userId);
+    public Assignment assignStaffToEvent(@RequestBody Assignment assignment) {
+        // Crée une nouvelle affectation et la sauvegarde dans la base de données
+        return assignmentRepository.save(assignment);
     }
 }

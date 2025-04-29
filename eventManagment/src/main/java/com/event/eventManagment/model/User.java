@@ -12,11 +12,13 @@ public class User {
     private String username;
     private String email;
     private String password;
-    private Role role;
+    private Role role; // Rôle principal
+    private OperationalRole operationalRole; // Rôle organisationnel
     private boolean available;
     private List<String> skills; // Liste des compétences de l'utilisateur
 
     // Constructeurs, getters et setters
+
     public String getId() {
         return id;
     }
@@ -57,6 +59,14 @@ public class User {
         this.role = role;
     }
 
+    public OperationalRole getOperationalRole() {
+        return operationalRole;
+    }
+
+    public void setOperationalRole(OperationalRole operationalRole) {
+        this.operationalRole = operationalRole;
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -65,11 +75,11 @@ public class User {
         this.available = available;
     }
 
-    public List<String> getSkills() {  // Getter pour les compétences
+    public List<String> getSkills() {
         return skills;
     }
 
-    public void setSkills(List<String> skills) {  // Setter pour les compétences
+    public void setSkills(List<String> skills) {
         this.skills = skills;
     }
 }

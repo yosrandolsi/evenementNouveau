@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/categories/delete/**").permitAll()  // Seul l'ADMIN peut supprimer des catégories
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Accès limité aux ADMIN
                 .requestMatchers("/api/organizer/**").hasAnyRole("ADMIN", "ORGANIZER")  // Accès limité aux ORGANIZER et ADMIN
-                .requestMatchers("/api/user/**").hasAnyRole("ADMIN", "USER", "ORGANIZER")  // Accès pour ADMIN, USER et ORGANIZER
+                .requestMatchers("/api/user/**").permitAll()  // Accès pour ADMIN, USER et ORGANIZER
                 .requestMatchers("/api/users/**").permitAll()  // Accès libre pour l'affichage des utilisateurs
                 .requestMatchers("/api/registrations/**").permitAll() // Accès libre aux inscriptions
                 .requestMatchers("/api/events/**").permitAll()  // Accès libre aux événements
@@ -48,6 +48,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/events/list").permitAll()  // Accès libre à la liste des événements
                 .requestMatchers("/api/events/details/**").permitAll()  // Accès libre aux détails d'un événement
                 .requestMatchers("/api/events/category/**").permitAll()  // Accès libre aux événements par catégorie
+                .requestMatchers("/assignments/assign").permitAll()
                 .anyRequest().authenticated()  // Toutes les autres requêtes nécessitent une authentification
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // Ajouter le filtre JWT avant l'authentification classique
