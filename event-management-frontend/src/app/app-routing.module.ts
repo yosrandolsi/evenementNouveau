@@ -15,7 +15,7 @@ import { EventRegistrationsComponent } from './events/event-registrations/event-
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full' },
 
-  // Module utilisateur (login, register)
+  // Lazy loading du module utilisateur
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
 
   // Événements
@@ -36,9 +36,10 @@ const routes: Routes = [
   // ✅ Inscriptions (liste des inscriptions)
   { path: 'registrations', component: EventRegistrationsComponent },
 
-  // Route fallback (page non trouvée)
+  // Fallback
   { path: '**', redirectTo: '/events' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

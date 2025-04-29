@@ -1,0 +1,61 @@
+<div class="user-list-container">
+  <h2>Utilisateurs par rôle</h2>
+
+  <!-- Filtres par rôle -->
+  <div class="role-box-container">
+    <div class="role-box" *ngFor="let role of roles" (click)="filterByRole(role)">
+      {{ role }}
+    </div>
+  </div>
+
+  <div *ngIf="selectedRole">
+    <h3>Utilisateurs avec le rôle : {{ selectedRole }}</h3>
+    <table border="1" cellspacing="0" cellpadding="8">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nom d'utilisateur</th>
+          <th>Email</th>
+          <th>Disponibilité</th>
+          <th>Compétences</th>
+          <th>Modifier le rôle</th>
+          <th *ngIf="selectedRole === 'STAFF'">Actions Staff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.id }}</td>
+          <td>{{ user.username }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.available ? 'Disponible' : 'Indisponible' }}</td>
+          <td>
+            <ul>
+              <li *ngFor="let skill of user.skills">{{ skill }}</li>
+            </ul>
+          </td>
+          <td>
+            <button *ngIf="editingRoleUserId !== user.id" (click)="startEditingRole(user.id, user.role)">Modifier</button>
+            <div *ngIf="editingRoleUserId === user.id">
+              <select [(ngModel)]="newRole">
+                <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+              </select>
+              <button (click)="updateRole(user.id)">Valider</button>
+              <button (click)="cancelEditing()">Annuler</button>
+            </div>
+          </td>
+          <td *ngIf="user.role === 'STAFF'">
+            <button (click)="openSkillModal(user)">Gérer les compétences</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Composant de gestion des compétences -->
+  <app-add-skill-modal
+    *ngIf="showSkillModal && selectedStaff"
+    [user]="selectedStaff"
+    [isModalOpen]="showSkillModal"
+    (closeModal)="closeSkillModal()">
+  </app-add-skill-modal>
+</div>
