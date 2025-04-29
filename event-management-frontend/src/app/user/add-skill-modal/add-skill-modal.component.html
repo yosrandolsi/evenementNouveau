@@ -1,20 +1,29 @@
 <div class="modal-container" *ngIf="isModalOpen">
     <div class="modal-content">
-      <h3>Ajouter un rôle et des compétences pour {{ user.username }}</h3>
+      <h3>Ajouter des compétences à {{ user.username }}</h3>
   
-      <p><strong>Rôle organisationnel :</strong></p>
-      <select [(ngModel)]="selectedRole" (change)="onRoleChange(selectedRole)">
-        <option *ngFor="let role of organizationalRoles" [value]="role">{{ role }}</option>
-      </select>
+      <!-- Rôle organisationnel déjà affecté (non modifiable ici) -->
+      <p><strong>Rôle organisationnel :</strong> {{ user.operationalRole }}</p>
   
-      <p><strong>Compétences disponibles pour le rôle de {{ selectedRole }} :</strong></p>
-      <div *ngFor="let skill of roleSkills[selectedRole]">
-        <label>
-          <input type="checkbox" [checked]="updatedSkills.includes(skill)" (change)="toggleSkill(skill)" />
-          {{ skill }}
-        </label>
+      <!-- Liste des compétences associées à ce rôle -->
+      <div *ngIf="selectedRole && roleSkills[selectedRole]">
+        <p><strong>Compétences disponibles :</strong></p>
+        <div *ngFor="let skill of roleSkills[selectedRole]">
+          <label>
+            <input
+              type="checkbox"
+              [checked]="updatedSkills.includes(skill)"
+              (change)="toggleSkill(skill)"
+            />
+            {{ skill }}
+          </label>
+        </div>
+      </div>
+      <div *ngIf="!roleSkills[selectedRole]">
+        <p>Aucune compétence disponible pour ce rôle.</p>
       </div>
   
+      <!-- Boutons d'action -->
       <div class="modal-actions">
         <button (click)="saveSkills()">Enregistrer</button>
         <button (click)="cancel()">Annuler</button>

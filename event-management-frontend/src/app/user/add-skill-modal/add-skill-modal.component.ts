@@ -11,14 +11,14 @@ export class AddSkillModalComponent implements OnInit {
   @Input() isModalOpen: boolean = false;
   @Output() closeModal: EventEmitter<void> = new EventEmitter();
 
-  // Liste des rôles organisationnels possibles
-  organizationalRoles: string[] = ['Animateur', 'Technicien', 'Hôte'];
+  // Liste des rôles organisationnels possibles (en majuscules)
+  organizationalRoles: string[] = ['ANIMATEUR', 'TECHNICIEN', 'HÔTE'];
 
-  // Compétences par rôle
+  // Compétences par rôle (en majuscules)
   roleSkills: { [key: string]: string[] } = {
-    Animateur: ['Animation de groupe', 'Gestion de projets', 'Communication'],
-    Technicien: ['Sonorisation', 'Vidéo', 'Installation'],
-    Hôte: ['Accueil des invités', 'Gestion d\'événements', 'Logistique']
+    ANIMATEUR: ['ANIMATION DE GROUPE', 'GESTION DE PROJETS', 'COMMUNICATION'],
+    TECHNICIEN: ['SONORISATION', 'VIDÉO', 'INSTALLATION'],
+    HOTE: ['ACCUEIL DES INVITÉS', 'GESTION D\'ÉVÉNEMENTS', 'LOGISTIQUE']
   };
 
   // Compétences actuelles de l'utilisateur
@@ -28,14 +28,25 @@ export class AddSkillModalComponent implements OnInit {
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    // Initialisation des compétences de l'utilisateur et du rôle
-    this.updatedSkills = this.user?.skills ? [...this.user.skills] : [];
-    this.selectedRole = this.user?.organizationalRole || ''; // Récupère le rôle organisationnel actuel
+    console.log('Utilisateur:', this.user);
+    console.log('Rôle opérationnel initial:', this.user?.operationalRole);
+
+    // Récupérer le rôle opérationnel et ajuster la casse en majuscules
+    this.selectedRole = this.user?.operationalRole ? this.user.operationalRole.toUpperCase() : '';  
+    console.log('selectedRole après initialisation:', this.selectedRole);
+
+    // Vérifier si le rôle existe dans roleSkills
+    if (this.roleSkills[this.selectedRole]) {
+      this.updatedSkills = [...this.roleSkills[this.selectedRole]];
+      console.log('Compétences chargées:', this.updatedSkills);
+    } else {
+      console.error("Aucun rôle valide trouvé pour l'utilisateur", this.user);
+    }
   }
 
   // Changer de rôle organisationnel
   onRoleChange(role: string): void {
-    this.selectedRole = role;
+    this.selectedRole = role.toUpperCase();  // Assurez-vous que la casse est en majuscules
     this.updateSkillsBasedOnRole();  // Met à jour les compétences en fonction du rôle sélectionné
   }
 
@@ -56,21 +67,28 @@ export class AddSkillModalComponent implements OnInit {
     }
   }
 
-  // Enregistrer les modifications
   saveSkills(): void {
-    const updatedUser = { ...this.user, skills: this.updatedSkills, organizationalRole: this.selectedRole };
-    this.userService.updateUser(this.user.id, updatedUser).subscribe(
+    // D'abord mettre à jour les compétences
+    this.userService.updateUserSkills(this.user.id, this.updatedSkills).subscribe(
       () => {
-        this.user.skills = [...this.updatedSkills];  // Met à jour les compétences affichées
-        this.user.organizationalRole = this.selectedRole;  // Met à jour le rôle affiché
+        // Ensuite mettre à jour le rôle organisationnel
+        this.userService.updateOperationalRole(this.user.id, this.selectedRole).subscribe(
+          () => {
+            this.user.skills = [...this.updatedSkills];
+            this.user.operationalRole = this.selectedRole;
+            this.closeModal.emit(); // Fermer le modal après mise à jour
+          },
+          (error) => {
+            console.error('Erreur lors de la mise à jour du rôle opérationnel', error);
+          }
+        );
       },
       (error) => {
         console.error('Erreur lors de la mise à jour des compétences', error);
       }
     );
-    this.closeModal.emit();  // Ferme le modal après l'enregistrement
   }
-
+  
   // Annuler l'édition
   cancel(): void {
     this.closeModal.emit();  // Ferme le modal sans enregistrer

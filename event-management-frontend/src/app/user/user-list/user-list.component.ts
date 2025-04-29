@@ -47,10 +47,9 @@ export class UserListComponent implements OnInit {
     this.newRole = currentRole;
   }
 
-  // Mise à jour du rôle global via la méthode updateGlobalRole
   updateRole(userId: string): void {
     if (this.newRole) {
-      this.userService.updateGlobalRole(userId, this.newRole).subscribe(
+      this.userService.updateUser(userId, { role: this.newRole }).subscribe(
         () => {
           const index = this.users.findIndex(user => user.id === userId);
           if (index !== -1) {
@@ -65,28 +64,30 @@ export class UserListComponent implements OnInit {
       );
     }
   }
-
-  // Mise à jour du rôle organisationnel via la méthode updateOperationalRole
   updateOperationalRole(user: any): void {
-    if (user.operationalRole) {
-      this.userService.updateOperationalRole(user.id, user.operationalRole).subscribe(
-        () => {
-          console.log('Rôle organisationnel mis à jour pour', user.username);
-
-          // Mettre à jour localement le rôle organisationnel de l'utilisateur
-          const index = this.users.findIndex(u => u.id === user.id);
-          if (index !== -1) {
-            this.users[index].operationalRole = user.operationalRole; // Mise à jour du rôle opérationnel uniquement
-          }
-
-          this.filterByRole(this.selectedRole); // Refiltrer la liste des utilisateurs si nécessaire
-        },
-        (error) => {
-          console.error('Erreur lors de la mise à jour du rôle organisationnel', error);
+    const updatedData = {
+      operationalRole: user.operationalRole // Seul le rôle organisationnel est envoyé
+    };
+  
+    this.userService.updateUser(user.id, updatedData).subscribe(
+      () => {
+        console.log('Rôle organisationnel mis à jour pour', user.username);
+  
+        // Mettre à jour localement le rôle organisationnel de l'utilisateur
+        const index = this.users.findIndex(u => u.id === user.id);
+        if (index !== -1) {
+          this.users[index].operationalRole = user.operationalRole; // Mise à jour du rôle opérationnel uniquement
         }
-      );
-    }
+  
+        this.filterByRole(this.selectedRole); // Refiltrer la liste des utilisateurs si nécessaire
+      },
+      (error) => {
+        console.error('Erreur lors de la mise à jour du rôle organisationnel', error);
+      }
+    );
   }
+  
+  
 
   cancelEditing(): void {
     this.editingRoleUserId = null;

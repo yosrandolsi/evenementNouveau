@@ -6,6 +6,7 @@ import com.event.eventManagment.model.User;
 import com.event.eventManagment.model.OperationalRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,5 +77,16 @@ public class UserController {
         User updatedUser = userService.updateOperationalRole(id, newOperationalRole);
         return ResponseEntity.ok(updatedUser);
     }
-
+    @PutMapping("/{userId}/skills")
+    public ResponseEntity<?> updateUserSkills(@PathVariable String userId, @RequestBody List<String> skills) {
+        try {
+            // Appel du service pour mettre à jour les compétences
+            User updatedUser = userService.updateSkills(userId, skills);
+            return ResponseEntity.ok(updatedUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Utilisateur non trouvé avec l'ID : " + userId);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la mise à jour des compétences");
+        }
+    }
 }

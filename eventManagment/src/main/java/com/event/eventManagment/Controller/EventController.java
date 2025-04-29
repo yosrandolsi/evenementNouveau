@@ -57,6 +57,7 @@ public class EventController {
         List<Event> events = eventService.getEventsByCategory(category);
         return ResponseEntity.ok(events);
     }
+    
 
 
 }

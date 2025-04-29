@@ -44,5 +44,9 @@ export class UserService {
   updateOperationalRole(id: string, newOperationalRole: string): Observable<any> {
     return this.http.put<any>(`${this.apiUrl}/${id}/operational-role`, { operationalRole: newOperationalRole });
   }
-  
+  // Mettre à jour les compétences d’un utilisateur
+updateUserSkills(id: string, skills: string[]): Observable<any> {
+  return this.http.put<any>(`${this.apiUrl}/${id}/skills`, skills);
+}
+
 }

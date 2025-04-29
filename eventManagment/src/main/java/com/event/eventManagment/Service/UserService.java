@@ -86,4 +86,16 @@ public class UserService {
         user.setOperationalRole(newOperationalRole);  // Mise à jour du rôle opérationnel
         return userRepository.save(user); // Sauvegarde de l'utilisateur avec son nouveau rôle opérationnel
     }
+ // Service pour mettre à jour les compétences d'un utilisateur
+    public User updateSkills(String userId, List<String> newSkills) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'ID : " + userId));
+        
+        // Mettre à jour les compétences de l'utilisateur
+        user.setSkills(newSkills);
+        
+        // Sauvegarder l'utilisateur après la mise à jour des compétences
+        return userRepository.save(user);
+    }
+
 }
