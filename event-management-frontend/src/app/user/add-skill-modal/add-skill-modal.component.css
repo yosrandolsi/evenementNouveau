@@ -5,71 +5,182 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+    background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
+    backdrop-filter: blur(4px); /* Effet de flou moderne */
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
   
   /* Le contenu du modal */
   .modal-content {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
+    padding: 30px;
+    border-radius: 12px;
     max-width: 500px;
-    width: 100%;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(155, 132, 204, 0.2);
+  }
+  
+  .modal-container:hover .modal-content {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
   }
   
   /* Titre du modal */
   .modal-content h3 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+    color: #5E4A8A;
+    font-size: 1.5rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 10px;
+  }
+  
+  .modal-content h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #9B84CC, #C1B0E8);
+    border-radius: 3px;
   }
   
   /* Styles des actions du modal (boutons) */
   .modal-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
   }
   
   .modal-actions button {
-    padding: 10px 20px;
+    padding: 12px 24px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    background-color: #007bff;
-    color: white;
-    transition: background-color 0.3s;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    min-width: 100px;
   }
   
-  .modal-actions button:hover {
-    background-color: #0056b3;
+  .modal-actions button:first-child {
+    background-color: #9B84CC;
+    color: white;
+    box-shadow: 0 2px 8px rgba(155, 132, 204, 0.3);
+  }
+  
+  .modal-actions button:first-child:hover {
+    background-color: #8A72C0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(155, 132, 204, 0.4);
   }
   
   .modal-actions button:nth-child(2) {
-    background-color: #ccc;
+    background-color: #f5f5f5;
+    color: #666;
   }
   
   .modal-actions button:nth-child(2):hover {
-    background-color: #999;
+    background-color: #e0e0e0;
+    color: #444;
   }
   
-  /* Liste des compétences (ajoutées et actuelles) */
-  ul {
+  /* Liste des compétences */
+  .skills-list {
     list-style-type: none;
     padding: 0;
+    margin: 20px 0;
+    max-height: 300px;
+    overflow-y: auto;
   }
   
-  ul li {
-    margin: 5px 0;
+  .skills-list li {
+    margin: 10px 0;
+    padding: 12px 15px;
+    background-color: #F9F7FF;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 3px solid #9B84CC;
+    transition: transform 0.2s;
   }
   
-  label {
+  .skills-list li:hover {
+    transform: translateX(5px);
+    background-color: #F0EBFA;
+  }
+  
+  .skill-remove {
+    color: #9B84CC;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+  
+  .skill-remove:hover {
+    background-color: #9B84CC;
+    color: white;
+  }
+  
+  /* Input pour ajouter des compétences */
+  .skill-input-container {
+    margin-top: 25px;
+    position: relative;
+  }
+  
+  .skill-input-container label {
     display: block;
-    margin: 5px 0;
-    font-size: 14px;
+    margin-bottom: 8px;
+    color: #5E4A8A;
+    font-weight: 500;
   }
   
+  .skill-input-container input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border 0.3s;
+  }
+  
+  .skill-input-container input:focus {
+    outline: none;
+    border-color: #9B84CC;
+    box-shadow: 0 0 0 3px rgba(155, 132, 204, 0.2);
+  }
+  
+  .add-skill-btn {
+    position: absolute;
+    right: 10px;
+    top: 38px;
+    background-color: #9B84CC;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .add-skill-btn:hover {
+    background-color: #8A72C0;
+  }
