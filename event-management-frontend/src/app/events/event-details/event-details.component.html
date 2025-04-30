@@ -9,21 +9,23 @@
     <!-- Catégorie de l'événement -->
     <p><strong>Catégorie:</strong> {{ event.category }}</p>
     
-    <!-- Date de l'événement avec un format personnalisé -->
+    <!-- Date de l'événement -->
     <p><strong>Date:</strong> {{ event.date | date:'dd/MM/yyyy' }}</p>
     
-    <!-- Lieu de l'événement -->
+    <!-- Lieu -->
     <p><strong>Lieu:</strong> {{ event.location }}</p>
     
-    <!-- Nombre de participants actuel et maximum -->
+    <!-- Participants -->
     <p><strong>Participants:</strong> {{ event.currentParticipants }} / {{ event.maxParticipants }}</p>
+    
+    <!-- Rôles opérationnels requis -->
+    <p><strong>Animateurs requis:</strong> {{ event.requiredAnimateurs }}</p>
+    <p><strong>Techniciens requis:</strong> {{ event.requiredTechniciens }}</p>
+    <p><strong>Hôtes requis:</strong> {{ event.requiredHotes }}</p>
 
     <div class="button-container">
-      <!-- Bouton Retour vers la page précédente -->
       <button class="back-button" (click)="goBack()">Retour</button>
-
-      <!-- Bouton Participer pour s'inscrire à l'événement -->
-      <button class="participer-button" (click)="participer()">Participer</button> <!-- 👈 ici -->
+      <button class="participer-button" (click)="participer()">Participer</button>
     </div>
   </div>
 </div>

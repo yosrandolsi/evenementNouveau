@@ -12,52 +12,60 @@ import com.event.eventManagment.model.Event;
 @RequestMapping("/api/events")
 @CrossOrigin(origins = "http://localhost:4200")
 public class EventController {
+
     private final EventService eventService;
 
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
 
-    // Path pour la création d'un événement
+    // ✅ Création d'un événement avec validation
     @PostMapping("/create")
-    public ResponseEntity<Event> createEvent(@RequestBody Event event) {
-        return ResponseEntity.ok(eventService.saveEvent(event));
+    public ResponseEntity<?> createEvent(@RequestBody Event event) {
+        if (event.getTitle() == null || event.getCategory() == null || event.getDate() == null) {
+            return ResponseEntity.badRequest().body("Titre, catégorie et date sont obligatoires.");
+        }
+
+        Event savedEvent = eventService.saveEvent(event);
+        return ResponseEntity.ok(savedEvent);
     }
 
-    // Path pour obtenir tous les événements
+    // ✅ Récupération de tous les événements
     @GetMapping("/list")
     public ResponseEntity<List<Event>> getEvents() {
         return ResponseEntity.ok(eventService.getAllEvents());
     }
 
-    // Path pour mettre à jour un événement
+    // ✅ Mise à jour d’un événement
     @PutMapping("/update/{id}")
-    public ResponseEntity<Event> updateEvent(@PathVariable String id, @RequestBody Event updatedEvent) {
-        Event event = eventService.updateEvent(id, updatedEvent);
-        return ResponseEntity.ok(event);
+    public ResponseEntity<?> updateEvent(@PathVariable String id, @RequestBody Event updatedEvent) {
+        try {
+            Event event = eventService.updateEvent(id, updatedEvent);
+            return ResponseEntity.ok(event);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    // Path pour obtenir un événement par son ID
+    // ✅ Récupération d’un événement par ID
     @GetMapping("/details/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable String id) {
         return eventService.getEventById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // Path pour supprimer un événement
+    // ✅ Suppression d’un événement
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable String id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
- // Path pour obtenir des événements par catégorie
+
+    // ✅ Récupération d’événements par catégorie
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable String category) {
         List<Event> events = eventService.getEventsByCategory(category);
         return ResponseEntity.ok(events);
     }
-    
-
-
 }

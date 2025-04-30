@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GestioneventsComponent } from './events/gestionevents/gestionevents.component';
-import { CreateEventComponent } from './events/create-event/create-event.component';
+
 import { EventsByCategoryComponent } from './events/events-by-category/events-by-category.component';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
 
   // Événements
   { path: 'events', component: GestioneventsComponent },
-  { path: 'create-event', component: CreateEventComponent },
+
   { path: 'event-details/:id', component: EventDetailsComponent },
   { path: 'events-by-category/:category', component: EventsByCategoryComponent },
   { path: 'register-event/:id', component: RegisterEventComponent },

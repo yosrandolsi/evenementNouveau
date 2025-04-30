@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsRoutingModule } from './events-routing.module';
 
-import { CreateEventComponent } from './create-event/create-event.component';
+
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { EventsByCategoryComponent } from './events-by-category/events-by-category.component';
 import { GestioneventsComponent } from './gestionevents/gestionevents.component';
@@ -14,7 +14,7 @@ import { RegisterEventComponent } from './register-event/register-event.componen
 import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
 @NgModule({
   declarations: [
-    CreateEventComponent,
+ 
     EventDetailsComponent,
     EventsByCategoryComponent,
     AddEventComponent,

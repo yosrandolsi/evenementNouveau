@@ -1,4 +1,5 @@
 <div *ngIf="events.length === 0" class="no-events">
+ 
   <p>Aucun événement disponible pour le moment.</p>
 </div>
 
@@ -24,6 +25,7 @@
           <button (click)="openUpdateModal(event)" class="btn-update">Mettre à jour</button>
           <button (click)="deleteEvent(event)" class="btn-delete">Supprimer</button>
           <button (click)="openDetails(event)" class="btn-detail">Détails</button>
+
 
         </td>
       </tr>

@@ -112,3 +112,23 @@ h2 {
   background-color: #c0392b;
   transform: translateY(-2px);
 }
+/* Bouton Détails */
+.btn-detail {
+  background-color: #2ECC71;  /* couleur de fond verte */
+  color: white;
+  font-size: 1rem;
+  padding: 10px 20px;  /* plus d'espace dans le bouton */
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: none;
+}
+
+.btn-detail:hover {
+  background-color: #27AE60;  /* couleur verte plus foncée au survol */
+  transform: translateY(-2px); /* léger effet de survol */
+}
+
+.btn-detail:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(46, 204, 113, 0.6); /* bordure verte au focus */
+}

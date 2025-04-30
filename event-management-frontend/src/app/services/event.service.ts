@@ -17,19 +17,17 @@ export class EventService {
   getAllEvents(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/list`, { headers: this.getAuthHeaders() })
       .pipe(
-        catchError(this.handleError)
+        catchError(this.handleError) // Gestion des erreurs
       );
   }
-  
 
   // Mettre à jour un événement existant (nouvelle version)
-  updateEvent(eventId: string, eventData: any) {
-    const token = localStorage.getItem('token'); // ou là où tu stockes ton token
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
-  
-    return this.http.put(`${this.baseUrl}/update/${eventId}`, eventData, { headers });
+  updateEvent(eventId: string, eventData: any): Observable<any> {
+    const headers = this.getAuthHeaders();  // Récupérer les headers avec le token
+    return this.http.put(`${this.baseUrl}/update/${eventId}`, eventData, { headers })
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   // Supprimer un événement
@@ -48,35 +46,31 @@ export class EventService {
       );
   }
 
-// EventService.ts
-
-// Récupérer un événement par son ID
-getEventById(eventId: string): Observable<any> {
-  return this.http.get<any>(`${this.baseUrl}/details/${eventId}`, { headers: this.getAuthHeaders() })
-    .pipe(
-      catchError(this.handleError)
-    );
-}
-
+  // Récupérer un événement par son ID
+  getEventById(eventId: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/details/${eventId}`, { headers: this.getAuthHeaders() })
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   // Fonction pour récupérer les headers avec le token d'authentification
   private getAuthHeaders(): HttpHeaders {
-    const token = this.authService.getToken();
+    const token = this.authService.getToken(); // Obtenir le token du service d'authentification
     if (!token) {
       console.error("Token absent dans le localStorage");
     } else {
-      console.log("Token trouvé:", token);
+      console.log("Token trouvé:", token);  // Log pour vérifier le token
     }
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      'Authorization': `Bearer ${token}`,  // Ajouter le token pour l'authentification
     });
   }
 
   // Gestion globale des erreurs
   private handleError(error: any) {
     let errorMessage = 'Une erreur est survenue';
-
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Erreur réseau: ${error.error.message}`;
     } else {
@@ -84,21 +78,15 @@ getEventById(eventId: string): Observable<any> {
     }
 
     console.error(errorMessage);
-    return throwError(() => new Error(errorMessage));
+    return throwError(() => new Error(errorMessage));  // Retourner l'erreur
   }
+
   // Ajouter un événement
-saveEvent(event: any): Observable<any> {
-  const token = this.authService.getToken(); // Récupérer le token d'authentification depuis le AuthService
-  const headers = new HttpHeaders({
-    'Content-Type': 'application/json', // Indiquer que l'on envoie des données JSON
-    'Authorization': `Bearer ${token}`  // Ajouter le token dans les headers pour l'authentification
-  });
-
-  // Envoi de la requête POST pour créer un événement
-  return this.http.post<any>(`${this.baseUrl}/create`, event, { headers })
-    .pipe(
-      catchError(this.handleError) // Gestion des erreurs
-    );
-}
-
+  saveEvent(event: any): Observable<any> {
+    const headers = this.getAuthHeaders();  // Récupérer les headers avec le token
+    return this.http.post<any>(`${this.baseUrl}/create`, event, { headers })
+      .pipe(
+        catchError(this.handleError)  // Gestion des erreurs
+      );
+  }
 }

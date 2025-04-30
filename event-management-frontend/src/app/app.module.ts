@@ -9,10 +9,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 // Importation des modules fonctionnels
 import { EventsModule } from './events/events.module';
 import { CategoriesModule } from './categories/categories.module';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
-    AppComponent,  // Déclare AppComponent et autres composants principaux
+    AppComponent,
+    SidebarComponent,  // Déclare AppComponent et autres composants principaux
   ],
   imports: [
     BrowserModule,

@@ -18,7 +18,10 @@ export class AddEventComponent {
     description: '',
     date: '',
     location: '',
-    maxParticipants: 0
+    maxParticipants: 0,
+    requiredAnimateurs: 0,
+    requiredTechniciens: 0,
+    requiredHotes: 0
   };
 
   constructor(private eventService: EventService, private router: Router) { }
