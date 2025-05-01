@@ -89,4 +89,12 @@ export class EventService {
         catchError(this.handleError)  // Gestion des erreurs
       );
   }
+  // Récupérer le nombre d'événements par catégorie
+countEventsByCategories(): Observable<Map<string, number>> {
+  return this.http.get<Map<string, number>>(`${this.baseUrl}/count-by-categories`, { headers: this.getAuthHeaders() })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
+
 }

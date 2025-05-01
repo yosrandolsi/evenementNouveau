@@ -2,21 +2,24 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { GestioneventsComponent } from './events/gestionevents/gestionevents.component';
-
 import { EventsByCategoryComponent } from './events/events-by-category/events-by-category.component';
 import { EventDetailsComponent } from './events/event-details/event-details.component';
 import { CategoryListComponent } from './categories/category-list/category-list.component';
 import { CategoryFormComponent } from './categories/category-form/category-form.component';
 import { AddEventComponent } from './events/add-event/add-event.component';
 import { RegisterEventComponent } from './events/register-event/register-event.component';
-import { EventRegistrationsComponent } from './events/event-registrations/event-registrations.component'; // ✅ Ajouté ici
-
+import { EventRegistrationsComponent } from './events/event-registrations/event-registrations.component'; 
+import { DashboardComponent } from './dashboard/dashboard.component';  // Importez le composant du dashboard
+import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 // Lazy loading du module utilisateur
 const routes: Routes = [
   { path: '', redirectTo: '/user/login', pathMatch: 'full' },
 
   // Lazy loading du module utilisateur
   { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+
+  // Dashboard
+  { path: 'dashboard', component: DashboardComponent },  // Route pour le dashboard
 
   // Événements
   { path: 'events', component: GestioneventsComponent },
@@ -25,6 +28,7 @@ const routes: Routes = [
   { path: 'events-by-category/:category', component: EventsByCategoryComponent },
   { path: 'register-event/:id', component: RegisterEventComponent },
   { path: 'register-event/:eventId/:categoryId', component: RegisterEventComponent },
+  { path: 'assignments', component: AllAssignmentsComponent },
 
   // Catégories
   { path: 'categories', component: CategoryListComponent },
@@ -39,7 +43,6 @@ const routes: Routes = [
   // Fallback
   { path: '**', redirectTo: '/events' }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

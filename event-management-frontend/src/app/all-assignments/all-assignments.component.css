@@ -1,0 +1,183 @@
+/* assign-staff-management.component.css */
+
+.container-fluid {
+    background-color: #f8f9fa;
+    min-height: calc(100vh - 56px);
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #fff;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.card-header h3 {
+    font-weight: 600;
+    color: #4A3F65;
+    margin: 0;
+}
+
+.card-header .bi {
+    color: #9B84CC;
+    font-size: 1.2rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Search and filter section */
+.input-group {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.input-group-text {
+    background-color: #fff;
+    border-right: none;
+}
+
+.form-control, .form-select {
+    border-left: none;
+    padding: 0.5rem 1rem;
+    box-shadow: none;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #9B84CC;
+    box-shadow: 0 0 0 0.2rem rgba(155, 132, 204, 0.25);
+}
+
+/* Table styles */
+.table-responsive {
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background-color: #f8f9fa;
+    color: #4A3F65;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+    border-bottom: none;
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(155, 132, 204, 0.03);
+}
+
+/* Avatar images */
+.rounded-circle {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border: 2px solid rgba(155, 132, 204, 0.2);
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+}
+
+/* Loading spinner */
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-width: 0.2em;
+    color: #9B84CC;
+}
+
+/* No results alert */
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.2);
+    color: #856404;
+}
+
+/* Card footer */
+.card-footer {
+    background-color: #fff;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+}
+
+/* Buttons */
+.btn-outline-primary {
+    border-color: #9B84CC;
+    color: #9B84CC;
+}
+
+.btn-outline-primary:hover {
+    background-color: #9B84CC;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #9B84CC;
+    border-color: #9B84CC;
+}
+
+.btn-primary:hover {
+    background-color: #7e6ba8;
+    border-color: #7e6ba8;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .card-header > div {
+        margin-top: 1rem;
+        width: 100%;
+    }
+    
+    .row.mb-4 > div {
+        margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+        border: none;
+    }
+}
+
+/* Hover effects */
+.hover-shadow:hover {
+    box-shadow: 0 4px 12px rgba(74, 63, 101, 0.1);
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+/* Icons */
+.bi {
+    vertical-align: middle;
+}

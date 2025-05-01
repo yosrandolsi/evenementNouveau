@@ -7,7 +7,9 @@ import com.event.eventManagment.model.OperationalRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -86,7 +88,8 @@ public class UserService {
         user.setOperationalRole(newOperationalRole);  // Mise à jour du rôle opérationnel
         return userRepository.save(user); // Sauvegarde de l'utilisateur avec son nouveau rôle opérationnel
     }
- // Service pour mettre à jour les compétences d'un utilisateur
+
+    // Service pour mettre à jour les compétences d'un utilisateur
     public User updateSkills(String userId, List<String> newSkills) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé avec l'ID : " + userId));
@@ -98,4 +101,30 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public List<User> getUsersByRole(String role) {
+        return userRepository.findByRole(role);
+    }
+
+  
+
+    // Corrected method for fetching staff by operational role and availability
+    public List<User> getStaffByOperationalRoleAndAvailable(String operationalRole, boolean available) {
+        return userRepository.findByOperationalRoleAndAvailable(operationalRole, available);
+    }
+    public List<User> getStaffByOperationalRole(String operationalRole) {
+        return userRepository.findByOperationalRole(operationalRole);  // Utilisation de la méthode du repository
+    }
+    public Map<Role, Long> countUsersByRole() {
+        Iterable<User> users = userRepository.findAll();
+        Map<Role, Long> roleCountMap = new HashMap<>();
+
+        // Compter les rôles
+        for (User user : users) {
+            Role role = user.getRole();
+            roleCountMap.put(role, roleCountMap.getOrDefault(role, 0L) + 1);
+        }
+
+        return roleCountMap;
+    }
+    
 }

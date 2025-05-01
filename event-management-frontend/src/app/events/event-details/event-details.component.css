@@ -1,60 +1,133 @@
-/* Container général pour centrer le contenu */
+/* event-details.component.css */
+
 .event-details-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Utilise toute la hauteur de la fenêtre */
-  background-color: #f4f7fc; /* Fond léger */
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 2rem;
 }
 
-/* Box qui contient les détails de l'événement */
 .event-details-box {
   background-color: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Ombre douce */
-  width: 80%;
-  max-width: 600px; /* Largeur max du box */
-  text-align: center; /* Centrage du texte */
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(74, 63, 101, 0.2);
+  padding: 2.5rem;
+  max-width: 800px;
+  width: 100%;
+  color: #4A3F65;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Titres */
+.event-details-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #4A3F65, #9B84CC);
+}
+
 .event-details-box h1 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: #333; /* Couleur de texte sombre */
+  color: #4A3F65;
+  margin-bottom: 1.5rem;
+  font-size: 2.2rem;
+  font-weight: 600;
 }
 
-/* Style pour les paragraphes et les labels */
+.event-details-box h2, 
+.event-details-box h3 {
+  color: #4A3F65;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+}
+
 .event-details-box p {
-  font-size: 1rem;
-  margin: 10px 0;
-  color: #555; /* Texte légèrement grisé */
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  line-height: 1.6;
 }
 
-/* Style pour le bouton de retour */
+.event-details-box p strong {
+  color: #4A3F65;
+  font-weight: 600;
+}
+
+.event-details-box ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.event-details-box li {
+  background-color: #f9f7ff;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  border-left: 4px solid #9B84CC;
+  font-size: 1rem;
+}
+
 .button-container {
-  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.back-button, 
+.participer-button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
 }
 
 .back-button {
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  background-color: #f0f0f0;
+  color: #4A3F65;
 }
 
 .back-button:hover {
-  background-color: #0056b3;
+  background-color: #e0e0e0;
 }
 
-/* Message si l'événement n'est pas trouvé */
-.event-not-found {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #d9534f; /* Couleur rouge pour l'erreur */
+.participer-button {
+  background-color: #9B84CC;
+  color: white;
+}
+
+.participer-button:hover {
+  background-color: #7e6ba8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(155, 132, 204, 0.3);
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background-color: #e0d6f0;
+  margin: 2rem 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .event-details-container {
+    padding: 1rem;
+  }
+  
+  .event-details-box {
+    padding: 1.5rem;
+  }
+  
+  .button-container {
+    flex-direction: column;
+  }
 }

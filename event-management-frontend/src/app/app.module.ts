@@ -10,11 +10,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { EventsModule } from './events/events.module';
 import { CategoriesModule } from './categories/categories.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent,  // Déclare AppComponent et autres composants principaux
+    SidebarComponent,
+    DashboardComponent,
+    AllAssignmentsComponent,  // Déclare AppComponent et autres composants principaux
   ],
   imports: [
     BrowserModule,

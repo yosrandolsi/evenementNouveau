@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from 'src/app/services/event.service';
+import { AssignmentService } from 'src/app/services/assignment.service';
+import { UserService } from 'src/app/services/user.service';  // Importer UserService
+import { Assignment } from 'src/app/services/assignment.service';
 
 @Component({
   selector: 'app-event-details',
@@ -9,14 +12,18 @@ import { EventService } from 'src/app/services/event.service';
 })
 export class EventDetailsComponent implements OnInit {
 
-  @Input() event: any;  // Ajout de 'event' comme @Input() pour recevoir les données de l'événement
-  @Input() showModal: boolean = false;  // Ajout de 'showModal' comme @Input() si nécessaire pour la gestion du modal
-  eventId: string = '';  // ID de l'événement
+  @Input() event: any;  
+  @Input() showModal: boolean = false;  
+  eventId: string = '';  
+  assignments: Assignment[] = [];  
+  userNames: { [userId: string]: string } = {};  // Stocker les noms des utilisateurs par leur ID
 
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
-    private router: Router
+    private router: Router,
+    private assignmentService: AssignmentService,
+    private userService: UserService  // Injection de UserService
   ) {}
 
   ngOnInit(): void {
@@ -29,40 +36,57 @@ export class EventDetailsComponent implements OnInit {
   loadEventDetails(): void {
     this.eventService.getEventById(this.eventId).subscribe({
       next: (data) => {
-        this.event = data;  // Stocker les détails de l'événement
+        this.event = data;  
+        this.loadAssignments();  
       },
       error: (err) => {
         console.error('Erreur lors du chargement des détails de l\'événement', err);
       }
     });
   }
-  participate(): void {
-    const userId = localStorage.getItem('userId');
-  
-    if (!userId) {
-      alert('Vous devez être connecté pour vous inscrire.');
-      this.router.navigate(['/login']);
-      return;
-    }
-  
-    // Passer l'ID de l'événement et de la catégorie dans les queryParams
-    this.router.navigate(['/register-event'], {
-      queryParams: {
-        eventId: this.event.id,
-        categoryId: this.event.category, // S'assurer que 'event.category' contient l'ID ou le nom de la catégorie
-        userId: userId
+
+  loadAssignments(): void {
+    this.assignmentService.getAssignmentsByEvent(this.eventId).subscribe({
+      next: (assignments) => {
+        this.assignments = assignments;  
+        this.loadUserNames();  // Charger les noms des utilisateurs après avoir récupéré les affectations
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des affectations', err);
       }
     });
   }
-  
-  
-participer(): void {
-  if (this.event) {
-    this.router.navigate(['/register-event', this.event.id, this.event.category]);
+
+  loadUserNames(): void {
+    this.assignments.forEach((assignment) => {
+      this.userService.getUserById(assignment.userId).subscribe({
+        next: (user) => {
+          this.userNames[assignment.userId] = user.username;  // Stocker le nom d'utilisateur par ID
+        },
+        error: (err) => {
+          console.error('Erreur lors de la récupération des informations utilisateur', err);
+        }
+      });
+    });
   }
-}
+
+  participer(): void {
+    if (this.event) {
+      this.router.navigate(['/register-event', this.event.id, this.event.category]);
+    }
+  }
 
   goBack(): void {
-    this.router.navigate(['/gestionevents']);  // Rediriger vers la page de gestion des événements
+    this.router.navigate(['/gestionevents']);  
+  }
+
+  getUserName(userId: string): string {
+    return this.userNames[userId] || 'Utilisateur inconnu';  // Retourner le nom d'utilisateur ou 'Utilisateur inconnu'
+  }
+
+  onStaffAssigned(staffData: any): void {
+    console.log('Personnel affecté mis à jour :', staffData);
+    // Recharger les affectations et l'événement après la mise à jour
+    this.loadEventDetails();
   }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EventsRoutingModule } from './events-routing.module';
+import { AssignmentListComponent } from './assignment-list/assignment-list.component'; // Ajoute cette ligne
 
 
 import { EventDetailsComponent } from './event-details/event-details.component';
@@ -12,6 +13,7 @@ import { UpdateEventComponent } from './update-event/update-event.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { RegisterEventComponent } from './register-event/register-event.component';
 import { EventRegistrationsComponent } from './event-registrations/event-registrations.component';
+import { AssignStaffComponent } from './assign-staff/assign-staff.component';
 @NgModule({
   declarations: [
  
@@ -22,7 +24,8 @@ import { EventRegistrationsComponent } from './event-registrations/event-registr
     ListeventsComponent,
     UpdateEventComponent,
     RegisterEventComponent,
-    EventRegistrationsComponent
+    EventRegistrationsComponent,
+    AssignStaffComponent, AssignmentListComponent 
   ],
   imports: [
     CommonModule,

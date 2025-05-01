@@ -11,18 +11,19 @@ public class Event {
     private String title;
     private String category;
     private String description;
-    private String date; // format String, tu peux passer à LocalDate si besoin
+    private String date; // Tu peux remplacer par LocalDate si tu veux un vrai format date
     private String location;
     private int maxParticipants;
 
-    // Besoins en personnel
+    // Besoins en personnel opérationnel
     private int requiredAnimateurs;
     private int requiredTechniciens;
     private int requiredHotes;
 
-    // Constructeurs
+    // Constructeur par défaut
     public Event() {}
 
+    // Constructeur complet
     public Event(String title, String category, String description, String date, String location,
                  int maxParticipants, int requiredAnimateurs, int requiredTechniciens, int requiredHotes) {
         this.title = title;
@@ -36,7 +37,7 @@ public class Event {
         this.requiredHotes = requiredHotes;
     }
 
-    // Getters et Setters
+    // Getters & Setters
     public String getId() {
         return id;
     }

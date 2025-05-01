@@ -1,31 +1,32 @@
 <div *ngIf="event" class="event-details-container">
   <div class="event-details-box">
-    <!-- Titre de l'événement -->
     <h1>{{ event.title }}</h1>
-    
-    <!-- Description de l'événement -->
     <p><strong>Description:</strong> {{ event.description }}</p>
-    
-    <!-- Catégorie de l'événement -->
     <p><strong>Catégorie:</strong> {{ event.category }}</p>
-    
-    <!-- Date de l'événement -->
     <p><strong>Date:</strong> {{ event.date | date:'dd/MM/yyyy' }}</p>
-    
-    <!-- Lieu -->
     <p><strong>Lieu:</strong> {{ event.location }}</p>
-    
-    <!-- Participants -->
     <p><strong>Participants:</strong> {{ event.currentParticipants }} / {{ event.maxParticipants }}</p>
-    
-    <!-- Rôles opérationnels requis -->
     <p><strong>Animateurs requis:</strong> {{ event.requiredAnimateurs }}</p>
     <p><strong>Techniciens requis:</strong> {{ event.requiredTechniciens }}</p>
     <p><strong>Hôtes requis:</strong> {{ event.requiredHotes }}</p>
+
+    <!-- Liste des affectations -->
+    <div *ngIf="assignments.length > 0">
+      <h3>Personnel affecté :</h3>
+      <ul>
+        <li *ngFor="let assignment of assignments">
+          <strong>{{ getUserName(assignment.userId) }}</strong> - Rôle : {{ assignment.role }}
+        </li>
+      </ul>
+    </div>
 
     <div class="button-container">
       <button class="back-button" (click)="goBack()">Retour</button>
       <button class="participer-button" (click)="participer()">Participer</button>
     </div>
+
+    <hr>
+    <h2>Affecter du personnel</h2>
+    <app-assign-staff [event]="event" (staffAssigned)="onStaffAssigned($event)"></app-assign-staff>
   </div>
 </div>

@@ -11,6 +11,10 @@ public class Assignment {
     private String eventId;   // ID de l'événement
     private OperationalRole operationalRole;  // Le rôle attribué à l'utilisateur pour cet événement
     private String skill;     // Compétence utilisée pour cet événement (par exemple : "son", "lumière", etc.)
+    public Assignment() {
+        // Ce constructeur est nécessaire pour que Spring Data Elasticsearch fonctionne
+    }
+
 
     // Constructeurs
     public Assignment(String userId, String eventId, OperationalRole operationalRole, String skill) {

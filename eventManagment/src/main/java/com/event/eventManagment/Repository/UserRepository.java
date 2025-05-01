@@ -21,4 +21,10 @@ public interface UserRepository extends ElasticsearchRepository<User, String> {
 
     // Trouver un utilisateur par son nom d'utilisateur
     Optional<User> findByUsername(String username);
+    List<User> findByRoleAndAvailable(Role role, boolean available);
+    List<User> findByRole(String role);
+    List<User> findByRoleAndSkillsContaining(Role role, String skill);
+
+    List<User> findByOperationalRoleAndAvailable(String operationalRole, boolean available);
+    List<User> findByOperationalRole(String operationalRole);
 }

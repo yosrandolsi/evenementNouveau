@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h2>Liste des affectations</h2>
+
+  <table class="table table-bordered" *ngIf="assignments.length > 0; else empty">
+    <thead>
+      <tr>
+        <th>Nom de l'Utilisateur</th>
+        <th>Nom de l'Événement</th>
+        <th>Rôle</th>
+        <th>Compétence</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let assignment of assignments">
+        <td>{{ getUserName(assignment.userId) }}</td>
+        <td>{{ getEventName(assignment.eventId) }}</td>
+        <td>{{ assignment.operationalRole || 'Non défini' }}</td>
+        <td>{{ assignment.skill || 'Non défini' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #empty>
+    <p>Aucune affectation trouvée.</p>
+  </ng-template>
+</div>

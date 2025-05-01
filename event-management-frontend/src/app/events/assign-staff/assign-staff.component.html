@@ -1,0 +1,39 @@
+<div class="roles-buttons">
+    <button 
+      *ngIf="event.requiredAnimateurs > 0" 
+      (click)="showStaff('ANIMATEUR')" 
+      [disabled]="event.requiredAnimateurs === 0">
+      Animateurs
+    </button>
+    <button 
+      *ngIf="event.requiredTechniciens > 0" 
+      (click)="showStaff('TECHNICIEN')" 
+      [disabled]="event.requiredTechniciens === 0">
+      Techniciens
+    </button>
+    <button 
+      *ngIf="event.requiredHotes > 0" 
+      (click)="showStaff('HOTE')" 
+      [disabled]="event.requiredHotes === 0">
+      Hôtes
+    </button>
+  </div>
+  
+  <!-- Affichage de la liste des personnels disponibles quand on clique sur un rôle -->
+  <div *ngIf="showStaffList">
+    <h3>Liste des {{ selectedRole }} disponibles</h3>
+    <div *ngFor="let staff of availableStaff">
+      <label>
+        <input 
+          type="checkbox" 
+          [value]="staff.id" 
+          (change)="toggleStaffSelection(staff.id)"
+          [checked]="selectedStaff.includes(staff.id)" />
+        {{ staff.username }} ({{ staff.operationalRole }})
+      </label>
+    </div>
+  
+    <!-- Bouton pour affecter les personnels sélectionnés -->
+    <button (click)="assignStaff()">Affecter le personnel sélectionné</button>
+  </div>
+  

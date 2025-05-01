@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/events/list").permitAll()  // Accès libre à la liste des événements
                 .requestMatchers("/api/events/details/**").permitAll()  // Accès libre aux détails d'un événement
                 .requestMatchers("/api/events/category/**").permitAll()  // Accès libre aux événements par catégorie
-                .requestMatchers("/assignments/assign").permitAll()
+                .requestMatchers("/assignments/**").permitAll()
                 .anyRequest().authenticated()  // Toutes les autres requêtes nécessitent une authentification
             )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // Ajouter le filtre JWT avant l'authentification classique

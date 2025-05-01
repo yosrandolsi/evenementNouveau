@@ -10,4 +10,6 @@ import com.event.eventManagment.model.Event;
 @Repository
 public interface EventRepository extends ElasticsearchRepository<Event, String> {
 	List<Event> findByCategory(String category);
+	long countByCategory(String category);
+	
 }

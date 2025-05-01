@@ -89,4 +89,32 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la mise à jour des compétences");
         }
     }
+    
+
+    @GetMapping("/by-operational-role")
+    public List<User> getStaffByOperationalRole(@RequestParam String operationalRole) {
+        return userService.getStaffByOperationalRole(operationalRole);
+    }
+    @GetMapping("/staff/{staffId}/skills")
+    public ResponseEntity<List<Skill>> getStaffSkills(@PathVariable String staffId) {
+        List<Skill> skills = staffService.getSkillsForStaff(staffId);
+        return ResponseEntity.ok(skills);
+    }
+
+ 
+    @GetMapping("/countByRole")
+    public ResponseEntity<Map<Role, Long>> countUsersByRole() {
+        Map<Role, Long> roleCountMap = userService.countUsersByRole();
+
+        // Filtrer les clés null dans le Map
+        if (roleCountMap.containsKey(null)) {
+            roleCountMap.remove(null); // Retirer les clés null
+        }
+
+        if (roleCountMap.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(roleCountMap);
+        }
+
+        return ResponseEntity.ok(roleCountMap);
+    }
 }

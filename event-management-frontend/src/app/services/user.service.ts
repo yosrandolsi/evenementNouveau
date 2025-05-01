@@ -48,5 +48,24 @@ export class UserService {
 updateUserSkills(id: string, skills: string[]): Observable<any> {
   return this.http.put<any>(`${this.apiUrl}/${id}/skills`, skills);
 }
+// Obtenir les utilisateurs disponibles par rôle et catégorie (compétence)
+getAvailableStaff(role: string, category: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/available-staff`, {
+    params: {
+      role: role,
+      category: category
+    }
+  });
+}
+getStaffByRole(role: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/role/${role}`);
+}
+getStaffByOperationalRole(operationalRole: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrl}/by-operational-role?operationalRole=${operationalRole}`);
+}
+// Ajouter cette méthode dans le UserService
+countUsersByRole(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/countByRole`);
+}
 
 }
