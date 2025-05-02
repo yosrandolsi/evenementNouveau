@@ -12,13 +12,14 @@ export class CategoryListComponent implements OnInit {
   categories: Category[] = [];
   newCategory: Category = { name: '' };
   showForm: boolean = false;
-
+  role: string='';
   constructor(
     private categoryService: CategoryService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.role = localStorage.getItem("role")?.trim() || "";
     this.loadCategories();
   }
 

@@ -45,7 +45,7 @@ export class LoginComponent {
         // Récupération de l'ID de l'utilisateur depuis la réponse de l'API
         const userId = response.userId;  // Utiliser directement userId depuis la réponse
         localStorage.setItem('userId', userId);  // Sauvegarde de l'ID dans le localStorage
-
+        localStorage.setItem('role', response.role);
         // Affichage de l'ID dans la console
         console.log('ID de l\'utilisateur:', userId); // Affiche l'ID dans la console
 

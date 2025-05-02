@@ -17,7 +17,7 @@ export class EventDetailsComponent implements OnInit {
   eventId: string = '';  
   assignments: Assignment[] = [];  
   userNames: { [userId: string]: string } = {};  // Stocker les noms des utilisateurs par leur ID
-
+  role: string='';
   constructor(
     private route: ActivatedRoute,
     private eventService: EventService,
@@ -27,6 +27,11 @@ export class EventDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+  
+
+    this.role = localStorage.getItem("role")?.trim() || "";
+console.log("role",this.role)
+
     if (!this.event) {
       this.eventId = this.route.snapshot.paramMap.get('id')!;
       this.loadEventDetails();

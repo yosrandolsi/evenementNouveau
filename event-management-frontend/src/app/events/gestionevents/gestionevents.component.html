@@ -3,7 +3,7 @@
 
   <!-- Ajouter un événement -->
   <div class="add-event-button-container">
-    <button class="btn btn-primary" (click)="openAddEventModal()">Ajouter un événement</button>
+    <ng-container *ngIf="role == 'ADMIN'">  <button class="btn btn-primary" (click)="openAddEventModal()">Ajouter un événement</button></ng-container>
   </div>
 
   <!-- Sélecteur de catégorie -->

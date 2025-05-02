@@ -95,11 +95,11 @@ public class UserController {
     public List<User> getStaffByOperationalRole(@RequestParam String operationalRole) {
         return userService.getStaffByOperationalRole(operationalRole);
     }
-    @GetMapping("/staff/{staffId}/skills")
+  /*  @GetMapping("/staff/{staffId}/skills")
     public ResponseEntity<List<Skill>> getStaffSkills(@PathVariable String staffId) {
         List<Skill> skills = staffService.getSkillsForStaff(staffId);
         return ResponseEntity.ok(skills);
-    }
+    }*/
 
  
     @GetMapping("/countByRole")

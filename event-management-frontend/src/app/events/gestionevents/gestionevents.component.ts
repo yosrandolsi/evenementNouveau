@@ -19,7 +19,7 @@ export class GestioneventsComponent implements OnInit {
   showCreateEventModal: boolean = false;  // Modal de création d'événement
   showDetailModal: boolean = false;  // Modal de détails
   noEventsMessage: string = '';
-
+  role: string='';
   constructor(
     private eventService: EventService,
     private categoryService: CategoryService,
@@ -29,6 +29,7 @@ export class GestioneventsComponent implements OnInit {
   ngOnInit(): void {
     this.loadCategories();
     this.refreshEvents();
+    this.role = localStorage.getItem("role")?.trim() || "";
   }
 
   loadCategories(): void {

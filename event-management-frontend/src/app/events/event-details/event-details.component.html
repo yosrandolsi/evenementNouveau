@@ -19,14 +19,21 @@
         </li>
       </ul>
     </div>
-
+    <div *ngIf="role !== 'ADMIN'">
+      <div *ngIf="role !== 'STAFF'">
     <div class="button-container">
       <button class="back-button" (click)="goBack()">Retour</button>
       <button class="participer-button" (click)="participer()">Participer</button>
+    </div></div>
     </div>
 
-    <hr>
-    <h2>Affecter du personnel</h2>
-    <app-assign-staff [event]="event" (staffAssigned)="onStaffAssigned($event)"></app-assign-staff>
-  </div>
+    <ng-container *ngIf="role == 'ADMIN'">
+      <div>
+        <hr>
+        <h2>Affecter du personnel</h2>
+        <app-assign-staff [event]="event" (staffAssigned)="onStaffAssigned($event)"></app-assign-staff>
+      </div>
+    </ng-container>
+    
+</div>
 </div>

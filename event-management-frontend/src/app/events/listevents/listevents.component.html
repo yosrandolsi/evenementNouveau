@@ -21,9 +21,9 @@
         <td>{{ event.location }}</td>
         <td class="description-cell">{{ event.description }}</td>
         <td>
-          
+          <ng-container *ngIf="role == 'ADMIN'">
           <button (click)="openUpdateModal(event)" class="btn-update">Mettre à jour</button>
-          <button (click)="deleteEvent(event)" class="btn-delete">Supprimer</button>
+          <button (click)="deleteEvent(event)" class="btn-delete">Supprimer</button></ng-container>
           <button (click)="openDetails(event)" class="btn-detail">Détails</button>
 
 
