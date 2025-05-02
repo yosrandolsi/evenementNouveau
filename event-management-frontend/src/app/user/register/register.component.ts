@@ -57,7 +57,8 @@ export class RegisterComponent {
         console.log('ID de l\'utilisateur:', userId); // Affiche l'ID dans la console
         
         // Redirection vers la page de connexion après l'inscription réussie
-        this.router.navigate(['/login']);
+        this.router.navigate(['/user/login']);
+
       },
       (error) => {
         this.isLoading = false;

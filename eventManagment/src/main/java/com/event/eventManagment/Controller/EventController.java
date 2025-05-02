@@ -25,7 +25,7 @@ public class EventController {
         this.userService = userService;  // Initialisation du UserService
     }
 
-    // ✅ Création d'un événement
+
     @PostMapping("/create")
     public ResponseEntity<?> createEvent(@RequestBody Event event) {
         if (event.getTitle() == null || event.getCategory() == null || event.getDate() == null) {
@@ -36,13 +36,12 @@ public class EventController {
         return ResponseEntity.ok(savedEvent);
     }
 
-    // ✅ Récupération de tous les événements
     @GetMapping("/list")
     public ResponseEntity<List<Event>> getEvents() {
         return ResponseEntity.ok(eventService.getAllEvents());
     }
 
-    // ✅ Mise à jour d’un événement
+  
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateEvent(@PathVariable String id, @RequestBody Event updatedEvent) {
         try {
@@ -53,7 +52,6 @@ public class EventController {
         }
     }
 
-    // ✅ Récupération d’un événement par ID
     @GetMapping("/details/{id}")
     public ResponseEntity<Event> getEventById(@PathVariable String id) {
         return eventService.getEventById(id)
@@ -61,21 +59,21 @@ public class EventController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // ✅ Suppression d’un événement
+  
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEvent(@PathVariable String id) {
         eventService.deleteEvent(id);
         return ResponseEntity.noContent().build();
     }
 
-    // ✅ Récupération d’événements par catégorie
+
     @GetMapping("/category/{category}")
     public ResponseEntity<List<Event>> getEventsByCategory(@PathVariable String category) {
         List<Event> events = eventService.getEventsByCategory(category);
         return ResponseEntity.ok(events);
     }
 
-    // ✅ Récupération des utilisateurs suggérés selon le rôle requis
+
     @GetMapping("/{eventId}/staff-suggestions")
     public ResponseEntity<List<User>> getSuggestedStaff(@PathVariable String eventId) {
         Event event = eventService.findById(eventId);
@@ -85,7 +83,7 @@ public class EventController {
 
         List<User> suggestedStaff = new ArrayList<>();
         
-        // Vérification des rôles requis et récupération des utilisateurs correspondants
+       
         if (event.getRequiredTechniciens() > 0) {
             suggestedStaff = userService.getUsersByRole("Technicien");
         } else if (event.getRequiredAnimateurs() > 0) {

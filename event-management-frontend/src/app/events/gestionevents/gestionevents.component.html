@@ -40,13 +40,18 @@
     (updated)="updateEvent($event)">
   </app-update-event>
 
-  <!-- Modal de création d'événement -->
-  <app-add-event
-    *ngIf="showCreateEventModal"  
-    [showModal]="showCreateEventModal"
-    (eventCreated)="onEventCreated()"
-    (close)="closeCreateEventModal()">
-  </app-add-event>
+ <!-- Modal de création d'événement -->
+<div *ngIf="showCreateEventModal" class="modal-overlay">
+  <div class="modal-content">
+    <button class="modal-close-btn" (click)="closeCreateEventModal()">&times;</button>
+    
+    <app-add-event
+      (eventCreated)="onEventCreated()"
+      (close)="closeCreateEventModal()">
+    </app-add-event>
+  </div>
+</div>
+
 
   <!-- Modal de détails -->
   <div *ngIf="showDetailModal" class="modal-backdrop">

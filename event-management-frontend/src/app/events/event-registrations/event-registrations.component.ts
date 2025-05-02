@@ -46,17 +46,23 @@ export class EventRegistrationsComponent implements OnInit {
     if (registration.status === 'Accepté') {
       return;  // Si déjà accepté, on ne fait rien
     }
-
+  
     const updatedRegistration = { ...registration, status: 'Accepté' };
+  
+    // Afficher les données dans la console (ou utiliser un toast, un modal, etc.)
+    console.log('Inscription acceptée :', updatedRegistration);
+  
     this.registrationService.updateRegistration(registration.id, updatedRegistration).subscribe({
       next: () => {
-        this.fetchRegistrations(); // Rafraîchir la liste après mise à jour
+        // Rafraîchir la liste après la mise à jour
+        this.fetchRegistrations();
       },
       error: (err) => {
-        console.error('Erreur lors de l’acceptation de l’inscription:', err);
+        console.error('Erreur lors de l’acceptation de l’inscription :', err);
       }
     });
   }
+  
 
   refuseRegistration(registration: any): void {
     if (confirm('Êtes-vous sûr de vouloir refuser cette inscription ?')) {

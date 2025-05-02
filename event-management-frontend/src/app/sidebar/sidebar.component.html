@@ -4,12 +4,15 @@
   </div>
   <nav class="sidebar-nav">
     <ul>
+      <ng-container *ngIf="role == 'ADMIN'">
       <li>
-        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+       
+        <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
           <i class="fas fa-home"></i>
-          <span>Accueil</span>
+          <span>Admin Dashboard</span>
         </a>
       </li>
+      </ng-container>
       <li>
         <a routerLink="/events" routerLinkActive="active">
           <i class="fas fa-calendar-alt"></i>
@@ -24,12 +27,7 @@
         </a>
       </li>
       </ng-container>
-      <li>
-        <a routerLink="/create" routerLinkActive="active">
-          <i class="fas fa-plus-circle"></i>
-          <span>Créer</span>
-        </a>
-      </li>
+      
 
       <ng-container *ngIf="role == 'ADMIN'">
       <li>
@@ -43,15 +41,8 @@
           <span>Catégories</span>
         </a>
       </li>
-      <li>
-        <a routerLink="/create-category" routerLinkActive="active">
-          <i class="fas fa-plus-square"></i>
-          <span>Ajouter Catégorie</span>
-        </a>
-      </li>
-      <li>
-        <a routerLink="/events/assignments" routerLinkActive="active">📋 Liste des affectations</a>
-      </li>
+    
+      
       <ng-container *ngIf="role == 'ADMIN'">
       <li>
         <a routerLink="/user/users" routerLinkActive="active">
@@ -64,8 +55,10 @@
 
   <div class="sidebar-footer">
     <div class="user-profile">
-      <img src="assets/images/user-avatar.png" alt="Profil" class="user-avatar">
-      <span class="user-name">Utilisateur</span>
+      <img src="assets/avatar.png" alt="Profil" class="user-avatar">
+      <span class="user-name">{{ username || 'Utilisateur' }}</span>
+
     </div>
   </div>
+  
 </aside>

@@ -1,0 +1,184 @@
+.add-event-button-container {
+    margin: 20px 0;
+    text-align: right;
+  }
+  
+  .add-event-button-container button {
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    border: none;
+    color: white;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .add-event-button-container button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    background: linear-gradient(135deg, #a777e3, #6e8efb);
+  }
+  
+  .add-event-button-container button:active {
+    transform: translateY(0);
+  }
+  
+  .add-event-button-container button::before {
+    content: '+';
+    margin-right: 8px;
+    font-weight: bold;
+  }
+  
+  /* Animation au survol */
+  .add-event-button-container button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+  }
+  
+  .add-event-button-container button:hover::after {
+    animation: ripple 1s ease-out;
+  }
+  
+  @keyframes ripple {
+    0% {
+      transform: scale(0, 0);
+      opacity: 0.5;
+    }
+    100% {
+      transform: scale(20, 20);
+      opacity: 0;
+    }
+  }
+
+  .filter-section {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .filter-section label {
+    font-size: 16px;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .filter-section select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px 35px 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 15px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236e8efb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 18px;
+    min-width: 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .filter-section select:hover {
+    border-color: #a777e3;
+    box-shadow: 0 2px 12px rgba(167, 119, 227, 0.15);
+  }
+  
+  .filter-section select:focus {
+    outline: none;
+    border-color: #6e8efb;
+    box-shadow: 0 0 0 3px rgba(110, 142, 251, 0.2);
+  }
+  
+  /* Style pour les options */
+  .filter-section select option {
+    padding: 10px;
+    background: white;
+    color: #333;
+  }
+  
+  .filter-section select option:hover {
+    background-color: #f0e9ff;
+  }
+  
+  /* Style pour l'option par défaut */
+  .filter-section select option[value="all"] {
+    font-weight: 500;
+    color: #6e8efb;
+  }
+
+  /* Dans votre fichier CSS global ou le composant parent */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    margin: 20px;
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #5b21b6;
+    cursor: pointer;
+    z-index: 10;
+    transition: transform 0.2s;
+  }
+  
+  .modal-close-btn:hover {
+    transform: scale(1.2);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes slideUp {
+    from { 
+      transform: translateY(20px);
+      opacity: 0.9;
+    }
+    to { 
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }

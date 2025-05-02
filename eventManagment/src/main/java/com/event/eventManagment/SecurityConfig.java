@@ -74,23 +74,24 @@ public class SecurityConfig {
         }))
 		.authorizeHttpRequests( requests -> requests
             
-                .requestMatchers("/api/auth/**").permitAll() // Authentification libre pour les endpoints auth
-                .requestMatchers("/api/categories/all").permitAll() // Accès libre pour récupérer toutes les catégories
+                .requestMatchers("/api/auth/**").permitAll() 
+                .requestMatchers("/api/categories/all").permitAll() 
                 .requestMatchers(new AntPathRequestMatcher("/api/categories/**", "OPTIONS")).permitAll() // Autoriser les OPTIONS pour certaines routes
-                .requestMatchers("/api/categories/create").hasRole("ADMIN") // Seul l'ADMIN peut créer des catégories
-                .requestMatchers("/api/categories/delete/**").hasRole("ADMIN")  // Seul l'ADMIN peut supprimer des catégories
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Accès limité aux ADMIN
-                .requestMatchers("/api/organizer/**").hasAnyRole("ADMIN", "ORGANIZER")  // Accès limité aux ORGANIZER et ADMIN
+                .requestMatchers("/api/categories/create").hasRole("ADMIN")
+                .requestMatchers("/api/categories/delete/**").hasRole("ADMIN")  
+                .requestMatchers("/api/admin/**").hasRole("ADMIN") 
+                .requestMatchers("/api/organizer/**").hasAnyRole("ADMIN", "ORGANIZER") 
                 /*.requestMatchers("/api/user/**").permitAll()  // Accès pour ADMIN, USER et ORGANIZER*/
                /*.requestMatchers("/api/users/**").permitAll()  // Accès libre pour l'affichage des utilisateurs*/
                 
-                .requestMatchers("/api/registrations/**").hasAnyRole("ADMIN", "ORGANIZER")  // Accès libre aux inscriptions
+                .requestMatchers("/api/registrations/**").permitAll()  
                 .requestMatchers("/api/events/list").permitAll()
                 .requestMatchers("/api/events/details/**").permitAll()
                 .requestMatchers("/api/events/category/**").permitAll()
                 .requestMatchers("/api/events/count-by-categories").permitAll()
                 .requestMatchers("/api/events/create").hasAnyRole("ADMIN", "ORGANIZER")
                 .requestMatchers("/api/events/update/**").hasAnyRole("ADMIN", "ORGANIZER")
+                
                 .requestMatchers("/api/events/delete/**").hasRole("ADMIN")
                 /*.requestMatchers("/api/events/**").hasAnyRole("ADMIN", "ORGANIZER") // Pour couvrir les autres cas comme /{id}/staff-suggestions*/
                 
@@ -105,13 +106,13 @@ public class SecurityConfig {
                 
                 
                 
-             // 🔐 Endpoints du ParticipantController
+             //  Endpoints du ParticipantController
                 .requestMatchers("/api/participants/register").permitAll()
                 .requestMatchers("/api/participants/event/**").permitAll()
                 .requestMatchers("/api/participants/all").permitAll()
 
                 .requestMatchers(new AntPathRequestMatcher("/api/events/**", "OPTIONS")).permitAll()
-             // 🔐 Endpoints du EventController
+             // Endpoints du EventController
                 .requestMatchers("/api/events/create").permitAll()
                 .requestMatchers("/api/events/list").permitAll()
                 .requestMatchers("/api/events/update/**").permitAll()
@@ -128,7 +129,7 @@ public class SecurityConfig {
                 
                /* .requestMatchers("/assignments/**").permitAll()*/
                 
-             // 🔐 Endpoints du AssignmentController
+             //  Endpoints du AssignmentController
                 .requestMatchers("/assignments/assign").permitAll()
                 .requestMatchers("/assignments").permitAll()
                 .requestMatchers("/assignments/delete/**").permitAll()
@@ -144,11 +145,11 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-        return config.getAuthenticationManager(); // Créer un manager d'authentification pour Spring Security
+        return config.getAuthenticationManager();
     }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();  // Encoder le mot de passe avec bcrypt
+        return new BCryptPasswordEncoder();  
     }
 }

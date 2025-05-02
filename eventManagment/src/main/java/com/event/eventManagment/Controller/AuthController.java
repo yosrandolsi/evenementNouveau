@@ -24,30 +24,28 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // Méthode pour l'inscription
+ 
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user) {
-        // Encoder le mot de passe de l'utilisateur
+    
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Si le rôle est nul, on affecte un rôle par défaut
         if (user.getRole() == null) {
             user.setRole(Role.PARTICIPANT); // Role par défaut
         }
 
-        // Enregistrer l'utilisateur dans la base de données
         User savedUser = userRepository.save(user);
         return ResponseEntity.ok(savedUser);  // Retourner l'utilisateur enregistré
     }
 
-    // Méthode pour la connexion
+   
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> login(@RequestBody User user) {
-        // Rechercher l'utilisateur par son nom d'utilisateur
+     
         User found = userRepository.findByUsername(user.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Vérifier si les mots de passe correspondent
+
         if (!passwordEncoder.matches(user.getPassword(), found.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }

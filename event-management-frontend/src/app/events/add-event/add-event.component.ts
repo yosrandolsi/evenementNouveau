@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { EventService } from '../../services/event.service';  // Assurez-vous que le chemin est correct
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { EventService } from '../../services/event.service';
+import { CategoryService } from '../../services/category.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,14 +8,13 @@ import { Router } from '@angular/router';
   templateUrl: './add-event.component.html',
   styleUrls: ['./add-event.component.css']
 })
-export class AddEventComponent {
-  @Input() showModal: boolean = false;  // Reçoit la propriété showModal du parent
-  @Output() close = new EventEmitter<void>();  // Émet un événement quand on ferme le modal
-  @Output() eventCreated = new EventEmitter<void>();  // Émet un événement quand l'événement est créé
+export class AddEventComponent implements OnInit {
+  @Output() close = new EventEmitter<void>();
+  @Output() eventCreated = new EventEmitter<void>();
 
   event = {
     title: '',
-    category: '',
+    category: '',  // sera le nom de la catégorie
     description: '',
     date: '',
     location: '',
@@ -24,25 +24,44 @@ export class AddEventComponent {
     requiredHotes: 0
   };
 
-  constructor(private eventService: EventService, private router: Router) { }
+  categories: any[] = [];
 
-  // Fonction pour soumettre le formulaire
-  onSubmit(): void {
-    this.eventService.saveEvent(this.event).subscribe(
-      response => {
-        console.log('Événement ajouté avec succès:', response);
-        this.eventCreated.emit();  // Émettre un événement pour notifier le parent que l'événement est créé
-        this.closeModal();  // Fermer le modal après l'ajout
-        this.router.navigate(['/events']);  // Rediriger vers la liste des événements ou une autre page
-      },
-      error => {
-        console.error('Erreur lors de l\'ajout de l\'événement:', error);
-      }
-    );
+  constructor(
+    private eventService: EventService,
+    private categoryService: CategoryService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
+    this.loadCategories();
   }
 
-  // Fonction pour fermer le modal
+  loadCategories(): void {
+    this.categoryService.getCategories().subscribe({
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des catégories', err);
+      }
+    });
+  }
+
+  onSubmit(): void {
+    this.eventService.saveEvent(this.event).subscribe({
+      next: (response) => {
+        console.log('Événement ajouté avec succès:', response);
+        this.eventCreated.emit();
+        this.closeModal();
+        this.router.navigate(['/events']);
+      },
+      error: (error) => {
+        console.error('Erreur lors de l\'ajout de l\'événement:', error);
+      }
+    });
+  }
+
   closeModal(): void {
-    this.close.emit();  // Émettre l'événement pour fermer le modal
+    this.close.emit();
   }
 }
