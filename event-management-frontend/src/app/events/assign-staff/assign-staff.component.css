@@ -1,123 +1,236 @@
-/* assign-staff.component.css */
+.staff-assignment-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
 .roles-buttons {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-  
-  .roles-buttons button {
-    padding: 0.7rem 1.5rem;
-    border: none;
-    border-radius: 8px;
-    background-color: #4A3F65;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-    box-shadow: 0 2px 5px rgba(74, 63, 101, 0.2);
-  }
-  
-  .roles-buttons button:hover:not([disabled]) {
-    background-color: #5a4e7a;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(74, 63, 101, 0.3);
-  }
-  
-  .roles-buttons button:disabled {
-    background-color: #d0cde0;
-    cursor: not-allowed;
-    opacity: 0.7;
-  }
-  
-  /* Staff list container */
-  div[ngIf="showStaffList"] {
-    background-color: #f9f7ff;
-    border-radius: 10px;
-    padding: 1.5rem;
-    margin-top: 1rem;
-    border: 1px solid #e0d6f0;
-  }
-  
-  div[ngIf="showStaffList"] h3 {
-    color: #4A3F65;
-    margin-top: 0;
-    margin-bottom: 1.2rem;
-    font-size: 1.3rem;
-    border-bottom: 2px solid #9B84CC;
-    padding-bottom: 0.5rem;
-  }
-  
-  /* Staff list items */
-  div[ngIf="showStaffList"] > div {
-    margin-bottom: 0.8rem;
-    padding: 0.8rem;
-    background-color: white;
-    border-radius: 6px;
-    border-left: 3px solid #9B84CC;
-    transition: all 0.2s ease;
-  }
-  
-  div[ngIf="showStaffList"] > div:hover {
-    transform: translateX(5px);
-    box-shadow: 0 3px 8px rgba(155, 132, 204, 0.2);
-  }
-  
-  div[ngIf="showStaffList"] label {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    cursor: pointer;
-    color: #4A3F65;
-    font-size: 1rem;
-  }
-  
-  div[ngIf="showStaffList"] input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #9B84CC;
-    cursor: pointer;
-  }
-  
-  /* Assign button */
-  div[ngIf="showStaffList"] > button {
-    margin-top: 1.5rem;
-    padding: 0.8rem 1.8rem;
-    background-color: #9B84CC;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  div[ngIf="showStaffList"] > button:hover {
-    background-color: #7e6ba8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(155, 132, 204, 0.3);
-  }
-  
-  /* Responsive design */
-  @media (max-width: 600px) {
-    .roles-buttons {
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-    
-    .roles-buttons button {
-      width: 100%;
-    }
-    
-    div[ngIf="showStaffList"] {
-      padding: 1rem;
-    }
-  }
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.role-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 22px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 1.05rem;
+}
+
+.role-btn i {
+  font-size: 1.1em;
+}
+
+.role-btn:hover:not([disabled]) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.role-btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.animateur {
+  background-color: #4e73df;
+  color: white;
+}
+
+.technicien {
+  background-color: #1cc88a;
+  color: white;
+}
+
+.hote {
+  background-color: #f6c23e;
+  color: #2c3e50;
+}
+
+.badge {
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  padding: 2px 8px;
+  font-size: 0.9em;
+}
+
+.staff-list-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.staff-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.staff-list-header h3 {
+  margin: 0;
+  color: #2c3e50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+.selected-count {
+  background-color: #e9ecef;
+  color: #495057;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9em;
+}
+
+.staff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.staff-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  border: 1px solid #dee2e6;
+}
+
+.staff-card:hover {
+  background-color: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.staff-checkbox {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+.staff-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: relative;
+  height: 20px;
+  width: 20px;
+  background-color: white;
+  border: 2px solid #adb5bd;
+  border-radius: 4px;
+}
+
+.staff-checkbox:hover input ~ .checkmark {
+  border-color: #4e73df;
+}
+
+.staff-checkbox input:checked ~ .checkmark {
+  background-color: #4e73df;
+  border-color: #4e73df;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.staff-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.staff-avatar {
+  font-size: 2em;
+  color: #6c757d;
+}
+
+.staff-info {
+  flex: 1;
+}
+
+.staff-name {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 1.05rem;
+}
+
+.staff-role {
+  font-size: 0.9em;
+  color: #6c757d;
+  margin-top: 3px;
+}
+
+.assign-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.btn-cancel, .btn-assign {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.btn-cancel {
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.btn-cancel:hover {
+  background-color: #dee2e6;
+}
+
+.btn-assign {
+  background-color: #4e73df;
+  color: white;
+}
+
+.btn-assign:hover:not([disabled]) {
+  background-color: #3a5ccc;
+}
+
+.btn-assign[disabled] {
+  background-color: #b0b7d1;
+  cursor: not-allowed;
+}

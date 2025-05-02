@@ -1,39 +1,70 @@
-<div class="roles-buttons">
+<div class="staff-assignment-container">
+  <!-- Boutons de rôle -->
+  <div class="roles-buttons">
     <button 
-      *ngIf="event.requiredAnimateurs > 0" 
-      (click)="showStaff('ANIMATEUR')" 
+      *ngIf="event.requiredAnimateurs > 0"
+      class="role-btn animateur"
+      (click)="showStaff('ANIMATEUR')"
       [disabled]="event.requiredAnimateurs === 0">
-      Animateurs
+      <i class="fas fa-microphone-alt"></i> Animateurs
+      <span class="badge">{{event.requiredAnimateurs}}</span>
     </button>
+    
     <button 
-      *ngIf="event.requiredTechniciens > 0" 
-      (click)="showStaff('TECHNICIEN')" 
+      *ngIf="event.requiredTechniciens > 0"
+      class="role-btn technicien"
+      (click)="showStaff('TECHNICIEN')"
       [disabled]="event.requiredTechniciens === 0">
-      Techniciens
+      <i class="fas fa-tools"></i> Techniciens
+      <span class="badge">{{event.requiredTechniciens}}</span>
     </button>
+    
     <button 
-      *ngIf="event.requiredHotes > 0" 
-      (click)="showStaff('HOTE')" 
+      *ngIf="event.requiredHotes > 0"
+      class="role-btn hote"
+      (click)="showStaff('HOTE')"
       [disabled]="event.requiredHotes === 0">
-      Hôtes
+      <i class="fas fa-concierge-bell"></i> Hôtes
+      <span class="badge">{{event.requiredHotes}}</span>
     </button>
   </div>
   
-  <!-- Affichage de la liste des personnels disponibles quand on clique sur un rôle -->
-  <div *ngIf="showStaffList">
-    <h3>Liste des {{ selectedRole }} disponibles</h3>
-    <div *ngFor="let staff of availableStaff">
-      <label>
-        <input 
-          type="checkbox" 
-          [value]="staff.id" 
-          (change)="toggleStaffSelection(staff.id)"
-          [checked]="selectedStaff.includes(staff.id)" />
-        {{ staff.username }} ({{ staff.operationalRole }})
-      </label>
+  <!-- Liste du personnel -->
+  <div *ngIf="showStaffList" class="staff-list-container">
+    <div class="staff-list-header">
+      <h3><i class="fas fa-users"></i> {{ selectedRole }} disponibles</h3>
+      <div class="selected-count">{{ selectedStaff.length }} sélectionné(s)</div>
     </div>
-  
-    <!-- Bouton pour affecter les personnels sélectionnés -->
-    <button (click)="assignStaff()">Affecter le personnel sélectionné</button>
+    
+    <div class="staff-grid">
+      <div *ngFor="let staff of availableStaff" class="staff-card">
+        <label class="staff-checkbox">
+          <input 
+            type="checkbox" 
+            [value]="staff.id" 
+            (change)="toggleStaffSelection(staff.id)"
+            [checked]="selectedStaff.includes(staff.id)" />
+          <span class="checkmark"></span>
+        </label>
+        
+        <div class="staff-avatar">
+          <i class="fas fa-user-circle"></i>
+        </div>
+        
+        <div class="staff-info">
+          <div class="staff-name">{{ staff.username }}</div>
+          <div class="staff-role">{{ staff.operationalRole }}</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="assign-actions">
+      <button class="btn-cancel" (click)="showStaffList = false">
+        <i class="fas fa-times"></i> Annuler
+      </button>
+      <button class="btn-assign" (click)="assignStaff()" [disabled]="selectedStaff.length === 0">
+        <i class="fas fa-user-check"></i> Affecter ({{ selectedStaff.length }})
+      </button>
+    </div>
   </div>
-  
+</div>
