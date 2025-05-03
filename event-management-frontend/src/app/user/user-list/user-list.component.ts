@@ -128,9 +128,9 @@ export class UserListComponent implements OnInit {
     }
   }
 
-  // ---------- OUVERTURE DE L'ÉCRAN D'ÉDITION ----------
   openEditUser(user: any): void {
     // Rediriger vers la page d'édition d'utilisateur
-    this.router.navigate(['/edit-user', user.id]);
+    this.router.navigate(['/user/edit-user', user.id]); // Assurez-vous que le chemin est correct
   }
+  
 }

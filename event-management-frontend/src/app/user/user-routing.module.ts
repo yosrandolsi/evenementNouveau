@@ -19,8 +19,7 @@ const routes: Routes = [
   // Route pour ajouter un nouvel utilisateur
   { path: 'add-user', component: UserFormComponent },
 
-  // Route pour modifier un utilisateur
-  { path: 'edit-user/:id', component: EditUserComponent }, // Nouvelle route d'édition
+  { path: 'edit-user/:id', component: EditUserComponent }, // Vérifiez que cette route est bien définie
 
   // Par défaut, rediriger vers la liste des utilisateurs
   { path: '', redirectTo: '/users', pathMatch: 'full' }
