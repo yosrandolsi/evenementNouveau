@@ -1,0 +1,36 @@
+<div class="edit-user-container">
+    <h2>Modifier l'utilisateur</h2>
+  
+    <form (ngSubmit)="onSubmit()">
+      <div>
+        <label for="username">Nom d'utilisateur:</label>
+        <input id="username" [(ngModel)]="user.username" name="username" type="text" required />
+      </div>
+  
+      <div>
+        <label for="email">Email:</label>
+        <input id="email" [(ngModel)]="user.email" name="email" type="email" required />
+      </div>
+  
+      <div>
+        <label for="role">Rôle:</label>
+        <select id="role" [(ngModel)]="user.role" name="role" required>
+          <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+  
+      <div *ngIf="user.role === 'STAFF'">
+        <label for="operationalRole">Rôle opérationnel:</label>
+        <select id="operationalRole" [(ngModel)]="user.operationalRole" name="operationalRole" required>
+          <option *ngFor="let role of organizationalRoles" [value]="role">{{ role }}</option>
+        </select>
+      </div>
+  
+      <div>
+        <button type="submit" [disabled]="!user.username || !user.email || !user.role">Enregistrer</button>
+      </div>
+    </form>
+  
+    <button (click)="cancel()">Annuler</button>
+  </div>
+  

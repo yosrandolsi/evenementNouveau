@@ -139,4 +139,13 @@ public class EventService {
         
         return eventCountByCategory;
     }
+    public List<String> getAllEventDates() {
+        List<Event> events = getAllEvents(); // Récupère tous les événements
+        return events.stream()
+                     .map(event -> event.getTitle() + " - " + event.getDate()) // Combine le nom et la date
+                     .distinct() // Facultatif : pour éviter les doublons
+                     .collect(Collectors.toList());
+    }
+
+
 }

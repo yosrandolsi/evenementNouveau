@@ -91,5 +91,16 @@ public class AssignmentController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @DeleteMapping("/{assignmentId}")
+    public ResponseEntity<Void> deleteAssignmentById(@PathVariable String assignmentId) {
+        try {
+            // Appeler le service pour supprimer l'affectation
+            assignmentService.deleteAssignment(assignmentId);
+            return ResponseEntity.noContent().build(); // Retourne 204 No Content
+        } catch (RuntimeException e) {
+            // Si l'affectation n'est pas trouvée, retourner un statut 404
+            return ResponseEntity.notFound().build();
+        }
+    }
     
 }

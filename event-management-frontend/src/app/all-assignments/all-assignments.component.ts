@@ -165,4 +165,19 @@ export class AllAssignmentsComponent implements OnInit {
   getEventTitle(eventId: string): string {
     return this.eventDetails[eventId]?.title || 'Chargement...';
   }
+  deleteAssignment(assignmentId: string): void {
+    if (confirm('Voulez-vous vraiment supprimer cette affectation ?')) {
+      this.assignmentService.deleteAssignment(assignmentId).subscribe({
+        next: () => {
+          this.refreshData(); // recharge les données après suppression
+        },
+        error: (err) => {
+          console.error('Erreur lors de la suppression', err);
+          alert('Échec de la suppression.');
+        }
+      });
+    }
+  }
+  
+  
 }

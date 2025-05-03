@@ -136,6 +136,7 @@ public class SecurityConfig {
                 .requestMatchers("/assignments/roles/**").permitAll()
                 .requestMatchers("/assignments/create").permitAll()
                 .requestMatchers("/assignments/event/**").permitAll()
+                .requestMatchers("/assignments/**").permitAll()
 
                 .anyRequest().authenticated() )
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);  // Ajouter le filtre JWT avant l'authentification classique

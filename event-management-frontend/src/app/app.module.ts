@@ -6,19 +6,19 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
-// Importation des modules fonctionnels
 import { EventsModule } from './events/events.module';
 import { CategoriesModule } from './categories/categories.module';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AllAssignmentsComponent } from './all-assignments/all-assignments.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     DashboardComponent,
-    AllAssignmentsComponent,  // Déclare AppComponent et autres composants principaux
+    AllAssignmentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,8 +27,9 @@ import { AllAssignmentsComponent } from './all-assignments/all-assignments.compo
     FormsModule,
     MatDialogModule,
     AppRoutingModule,
-    EventsModule,       // ✅ EventsModule gère ses composants
-    CategoriesModule    // ✅ CategoriesModule gère les siens
+    EventsModule,
+    CategoriesModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

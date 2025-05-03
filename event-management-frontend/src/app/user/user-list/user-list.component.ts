@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -19,7 +20,7 @@ export class UserListComponent implements OnInit {
   showSkillModal: boolean = false;
   selectedStaff: any = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -64,6 +65,7 @@ export class UserListComponent implements OnInit {
       );
     }
   }
+
   updateOperationalRole(user: any): void {
     const updatedData = {
       operationalRole: user.operationalRole // Seul le rôle organisationnel est envoyé
@@ -86,8 +88,6 @@ export class UserListComponent implements OnInit {
       }
     );
   }
-  
-  
 
   cancelEditing(): void {
     this.editingRoleUserId = null;
@@ -111,5 +111,26 @@ export class UserListComponent implements OnInit {
         console.error('Erreur de rechargement après modification des compétences', error);
       }
     );
+  }
+
+  // ---------- SUPPRESSION D'UTILISATEUR ----------
+  deleteUser(userId: string): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')) {
+      this.userService.deleteUser(userId).subscribe(
+        () => {
+          this.users = this.users.filter(user => user.id !== userId);
+          this.filterByRole(this.selectedRole); // Refiltrer les utilisateurs après suppression
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression de l\'utilisateur', error);
+        }
+      );
+    }
+  }
+
+  // ---------- OUVERTURE DE L'ÉCRAN D'ÉDITION ----------
+  openEditUser(user: any): void {
+    // Rediriger vers la page d'édition d'utilisateur
+    this.router.navigate(['/edit-user', user.id]);
   }
 }

@@ -1,10 +1,17 @@
-<!-- Graphique des événements par catégorie -->
-<div class="chart-container" style="position: relative; height:40vh; width:40vw; margin: auto;">
+<!-- Conteneur de la ligne avec flexbox -->
+<div style="display: flex; justify-content: space-around;">
+
+  <!-- Graphique des événements par catégorie -->
+  <div class="chart-container" style="position: relative; height:40vh; width:40vw;">
+    <h3 style="text-align: center;">Événements par catégorie</h3>
     <canvas id="eventCategoryPieChart"></canvas>
   </div>
-  
+
   <!-- Graphique des utilisateurs par rôle -->
-  <div class="chart-container" style="position: relative; height:40vh; width:40vw; margin: auto;">
+  <div class="chart-container" style="position: relative; height:40vh; width:40vw;">
+    <h3 style="text-align: center;">Utilisateurs par rôle</h3>
     <canvas id="userRoleBarChart"></canvas>
   </div>
-  
+
+</div>
+

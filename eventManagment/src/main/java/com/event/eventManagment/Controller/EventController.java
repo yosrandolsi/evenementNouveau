@@ -99,4 +99,8 @@ public class EventController {
         Map<String, Long> eventCountByCategory = eventService.countEventsByCategories();
         return ResponseEntity.ok(eventCountByCategory);
     }
+    @GetMapping("/dates")
+    public List<String> getAllEventDates() {
+        return eventService.getAllEventDates();
+    }
 }

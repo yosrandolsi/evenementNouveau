@@ -96,5 +96,12 @@ countEventsByCategories(): Observable<Map<string, number>> {
       catchError(this.handleError)
     );
 }
+// Récupérer toutes les dates des événements
+getAllEventDates(): Observable<string[]> {
+  return this.http.get<string[]>(`${this.baseUrl}/dates`, { headers: this.getAuthHeaders() })
+    .pipe(
+      catchError(this.handleError)
+    );
+}
 
 }

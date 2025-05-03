@@ -8,17 +8,13 @@ html, body {
 /* Conteneur principal */
 .app-container {
   display: flex;
-  height: 100vh;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden;
 }
 
 /* Sidebar */
 .sidebar {
-  width: 250px;
-  height: calc(100vh - 20px); /* pleine hauteur moins marge */
-  margin-top: auto;
-  margin-left: -8px;
+  width: 300px;
+  height: 100vh;
   background-color: #4A3F65;
   color: white;
   display: flex;
@@ -27,7 +23,9 @@ html, body {
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
   overflow: hidden;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
   z-index: 10;
 }
 
@@ -125,19 +123,19 @@ html, body {
 
 /* Contenu principal */
 .content {
-  flex: 1;
+  margin-left: 250px; /* Important : pour ne pas chevaucher la sidebar */
   padding: 25px;
   background-color: #f5f6fa;
   overflow-y: auto;
-  margin-left: 270px; /* espace pour ne pas chevaucher la sidebar */
   min-height: 100vh;
+  width: calc(100% - 250px); /* Adapter la largeur en fonction de la sidebar */
+  box-sizing: border-box;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .sidebar {
     width: 70px;
-    overflow: hidden;
   }
 
   .sidebar-header h3,
@@ -161,7 +159,8 @@ html, body {
   }
 
   .content {
-    margin-left: 80px;
+    margin-left: 70px;
+    width: calc(100% - 70px);
   }
 }
 

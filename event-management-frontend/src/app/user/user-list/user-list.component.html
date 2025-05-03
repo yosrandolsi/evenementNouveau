@@ -21,6 +21,7 @@
           <th>Modifier le rôle</th>
           <th *ngIf="selectedRole === 'STAFF'">Rôle opérationnel</th>
           <th *ngIf="selectedRole === 'STAFF'">Actions Staff</th>
+          <th>Actions</th> <!-- Nouvelle colonne pour actions supplémentaires -->
         </tr>
       </thead>
       <tbody>
@@ -61,6 +62,15 @@
           <!-- Affichage du bouton "Gérer les compétences" uniquement pour les STAFF -->
           <td *ngIf="user.role === 'STAFF'">
             <button (click)="openSkillModal(user)">Gérer les compétences</button>
+          </td>
+
+          <!-- Actions de mise à jour et suppression -->
+          <td>
+            <!-- Bouton de mise à jour -->
+            <button (click)="openEditUser(user)">Mettre à jour</button>
+
+            <!-- Bouton de suppression -->
+            <button (click)="deleteUser(user.id)">Supprimer</button>
           </td>
         </tr>
       </tbody>

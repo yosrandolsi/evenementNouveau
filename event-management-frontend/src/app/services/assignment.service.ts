@@ -49,5 +49,6 @@ export class AssignmentService {
   createAssignment(assignment: { userId: string, eventId: string, operationalRole: string, skill: string }): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/assign`, assignment);
   }
-  
+
+
 }

@@ -6,7 +6,8 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { UserRoutingModule } from './user-routing.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { AddSkillModalComponent } from './add-skill-modal/add-skill-modal.component'; // ⬅️ Ajoute FormsModule ici
+import { AddSkillModalComponent } from './add-skill-modal/add-skill-modal.component';
+import { EditUserComponent } from './edit-user/edit-user.component'; // ⬅️ Ajoute FormsModule ici
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { AddSkillModalComponent } from './add-skill-modal/add-skill-modal.compon
     LoginComponent,
     UserListComponent,
     UserFormComponent,
-    AddSkillModalComponent
+    AddSkillModalComponent,
+    EditUserComponent
   ],
   imports: [
     CommonModule,

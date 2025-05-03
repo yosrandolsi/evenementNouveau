@@ -3,12 +3,17 @@ import { EventService } from '../services/event.service';
 import { UserService } from '../services/user.service'; // 👈 Importer
 import { Chart } from 'chart.js/auto';
 
+import dayGridPlugin from '@fullcalendar/daygrid';  // Plugin pour la vue calendrier du mois
+import interactionPlugin from '@fullcalendar/interaction';  // Plugin pour l'interaction avec le calendrier
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
+  calendarOptions: any = {};  // Options pour FullCalendar
 
   constructor(
     private eventService: EventService,
@@ -18,6 +23,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadPieChart();
     this.loadUserRoleChart(); // 👈 Appeler le 2e chart
+    this.loadEventsForCalendar();  // Charger les événements pour le calendrier
   }
 
   loadPieChart(): void {
@@ -84,5 +90,27 @@ export class DashboardComponent implements OnInit {
         }
       });
     });
+  }
+
+  loadEventsForCalendar(): void {
+    this.eventService.getAllEvents().subscribe(events => {
+      // Transforme les événements en un format adapté à FullCalendar
+      const calendarEvents = events.map(event => ({
+        title: event.name,  // Assurez-vous que le nom de l'événement est bien dans `event.name`
+        start: event.date,  // Date de l'événement, assurez-vous que la date est au format attendu
+      }));
+
+      this.calendarOptions = {
+        initialView: 'dayGridMonth',  // Affichage du calendrier mensuel
+        plugins: [dayGridPlugin, interactionPlugin],  // Plugins FullCalendar
+        events: calendarEvents,  // Utilisation des événements récupérés
+        eventClick: this.handleEventClick
+      };
+    });
+  }
+
+  handleEventClick(eventClickInfo: any): void {
+    const event = eventClickInfo.event;
+    alert(`Événement: ${event.title}\nDate: ${event.start}`);
   }
 }
