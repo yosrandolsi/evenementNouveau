@@ -32,18 +32,6 @@
   padding-bottom: 0.75rem;
 }
 
-.modal-title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #34495e;
-}
-
-.modal-title h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
 
 .close-btn {
   background: none;
@@ -114,39 +102,7 @@ textarea {
   margin-top: 1.2rem;
 }
 
-.btn-cancel {
-  padding: 10px 20px;
-  border-radius: 8px;
-  background-color: #f0f0f0;
-  color: #555;
-  border: 1px solid #ccc;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
 
-.btn-cancel:hover {
-  background-color: #e4e4e4;
-}
-
-.btn-submit {
-  padding: 10px 20px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #4a6fa5, #3a5a8a);
-  color: #fff;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: background 0.2s, transform 0.2s;
-}
-
-.btn-submit:hover {
-  background: linear-gradient(135deg, #3a5a8a, #2c3e50);
-  transform: translateY(-1px);
-}
 
 /* Animations */
 @keyframes fadeIn {
@@ -157,4 +113,66 @@ textarea {
 @keyframes slideUp {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+
+
+
+
+
+/* Appliquer le même style que .btn-delete à .btn-cancel */
+.btn-cancel {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin-right: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(74, 63, 101, 0.2);
+  transition: all 0.3s ease;
+  background-color: #e74c3c;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
+
+/* Appliquer le même style que .btn-update à .btn-submit */
+.btn-submit {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-weight: 500;
+  box-shadow: 0 4px 8px rgba(74, 63, 101, 0.2);
+  transition: all 0.3s ease;
+  background-color: #4A3F65;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-submit:hover {
+  background-color: #4a47b8;
+  transform: translateY(-2px);
+}
+
+
+
+.modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #34495e;
+}
+
+.modal-title h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
 }

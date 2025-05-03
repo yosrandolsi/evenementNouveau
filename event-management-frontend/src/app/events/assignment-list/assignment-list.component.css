@@ -1,0 +1,211 @@
+
+h2 {
+    color: #4A3F65;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  
+  h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, #9B84CC, #4A3F65);
+  }
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+
+  /* assignment-list.component.css */
+
+/* Conteneur principal */
+.assignment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+  }
+  
+  /* En-tête */
+  .assignment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .assignment-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .assignment-title i {
+    margin-right: 0.75rem;
+    color: #3498db;
+  }
+  
+  /* Carte contenant le tableau */
+  .assignment-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    overflow: hidden;
+  }
+  
+  /* Tableau */
+  .assignment-table {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  
+  .assignment-table thead th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 2px solid #e9ecef;
+  }
+  
+  .assignment-table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-top: 1px solid #e9ecef;
+  }
+  
+  .assignment-table tbody tr:hover {
+    background-color: #f8fafc;
+  }
+  
+  /* Avatar utilisateur */
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border-radius: 50%;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-right: 0.75rem;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-name {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+  
+  .user-id {
+    font-size: 0.75rem;
+    color: #6c757d;
+  }
+  
+  /* Badges */
+  .badge {
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 0.25rem;
+  }
+  
+  .badge-role {
+    background-color: #e6f7ee;
+    color: #28a745;
+  }
+  
+  .badge-skill {
+    background-color: #e6f6ff;
+    color: #17a2b8;
+  }
+  
+  .badge-event {
+    background-color: #f0e6ff;
+    color: #6f42c1;
+  }
+  
+  .badge-undefined {
+    background-color: #f8f9fa;
+    color: #6c757d;
+  }
+  
+  /* État vide */
+  .empty-state {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+  
+  .empty-state i {
+    font-size: 3rem;
+    color: #adb5bd;
+    margin-bottom: 1rem;
+  }
+  
+  .empty-state h5 {
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+  }
+  
+  .empty-state p {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Boutons */
+  .btn-primary {
+    background-color: #3498db;
+    border-color: #3498db;
+  }
+  
+  .btn-outline-primary {
+    color: #3498db;
+    border-color: #3498db;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #3498db;
+    color: white;
+  }
+  
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .assignment-container {
+      padding: 1rem;
+    }
+    
+    .assignment-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .assignment-title {
+      margin-bottom: 1rem;
+    }
+    
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  }

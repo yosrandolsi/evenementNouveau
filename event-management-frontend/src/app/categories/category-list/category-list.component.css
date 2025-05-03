@@ -1,10 +1,5 @@
 /* === TITRE DES CATÉGORIES === */
-.category-title {
-  text-align: center;
-  font-size: 2rem;
-  margin-top: 2rem;
-  color: #4A3F65;
-}
+
 
 /* === LISTE DES CATÉGORIES === */
 .category-list {
@@ -174,4 +169,30 @@
 }
 .delete-button::before {
   content: "Delete";
+}
+
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  color: #4A3F65;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #9B84CC, #4A3F65);
 }

@@ -39,13 +39,13 @@
           </td>
 
           <td>
-            <button *ngIf="editingRoleUserId !== user.id" (click)="startEditingRole(user.id, user.role)">Modifier</button>
+            <button *ngIf="editingRoleUserId !== user.id" class="btn-edit" (click)="startEditingRole(user.id, user.role)">Modifier</button>
             <div *ngIf="editingRoleUserId === user.id">
               <select [(ngModel)]="newRole">
                 <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
               </select>
-              <button (click)="updateRole(user.id)">Valider</button>
-              <button (click)="cancelEditing()">Annuler</button>
+              <button class="btn-success" (click)="updateRole(user.id)">Valider</button>
+              <button class="btn-cancel" (click)="cancelEditing()">Annuler</button>
             </div>
           </td>
 
@@ -56,21 +56,21 @@
               <option [ngValue]="null" disabled>Choisir...</option>
               <option *ngFor="let role of organizationalRoles" [value]="role">{{ role }}</option>
             </select>
-            <button (click)="updateOperationalRole(user)">Affecter</button>
+            <button class="btn-update" (click)="updateOperationalRole(user)">Affecter</button>
           </td>
 
           <!-- Affichage du bouton "Gérer les compétences" uniquement pour les STAFF -->
           <td *ngIf="user.role === 'STAFF'">
-            <button (click)="openSkillModal(user)">Gérer les compétences</button>
+            <button class="btn-edit" (click)="openSkillModal(user)">Gérer les compétences</button>
           </td>
 
           <!-- Actions de mise à jour et suppression -->
           <td>
             <!-- Bouton de mise à jour -->
-            <button (click)="openEditUser(user)">Mettre à jour</button>
+            <button class="btn-edit" (click)="openEditUser(user)">Mettre à jour</button>
 
             <!-- Bouton de suppression -->
-            <button (click)="deleteUser(user.id)">Supprimer</button>
+            <button class="btn-delete" (click)="deleteUser(user.id)">Supprimer</button>
           </td>
         </tr>
       </tbody>

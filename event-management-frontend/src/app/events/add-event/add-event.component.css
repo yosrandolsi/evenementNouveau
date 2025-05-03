@@ -151,3 +151,16 @@
       font-size: 22px;
     }
   }
+
+  .form-control {
+    width: calc(100% - 32px); /* réduit la largeur pour laisser de la place */
+    padding: 12px 16px;
+    margin: 0 16px; /* espace de 16px à gauche et à droite */
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+    box-sizing: border-box;
+  }
+  
